@@ -1,51 +1,56 @@
 # abrasive-back-4176
 CW B22 Project
 
-ProductType :
-{
+interface ProductType{
     id : number,
-    images: [
-        string
-    ],
+    images: string[],
     title : string,
     from : string
     price : number,
-    returnable : true|false,
-    timetoship : number(no decimals),
-    cancellable : true | false,
-    discount : number(10-40%),
+    returnable : boolean,
+    timeToShip : number,
+    cancellable : boolean,
+    discount : number,
     description : string
-    category : 
-
-
+    category : string
 }
 
 UserType : 
-//TOTO
 {
-    id : 
-    userId : 
-    username : 
-    userphone number :
-    user email :
+    id : number,
+    userId : number,
+    userName : string,
+    userMobile: string,
+    userPassword : string,
+    userEmail : string,
     address : 
     {
-        lane ,
-        city,
-        state,
-        pincode,
-    },
-
-    
+        lane : string ,
+        city : string ,
+        state: string ,
+        pinCode : string
+    }
 }
 
-CartType : 
+CartItemType : 
 {
-    id :
+    id : number ,
+    {
+        ...ProductType
+    }
+    productQty : number
+}
+
+OrderType : {
+    orderId : number,
     products : [
-        productid
-    ]
-    
+        {...ProductType,productQty}
+    ],
+    userId : number,
+    orderDate : string,
+    orderTime : string,
+    orderStatus : "Pending" | "Confirmed",
+    orderAddress : string
 
 }
 

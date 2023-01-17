@@ -1,6 +1,12 @@
 # abrasive-back-4176
 CW B22 Project
 
+
+instructions : 
+- clone repo
+- cd abrasive-back-4176
+- npm i
+
 interface ProductType{
     id : number,
     images: string[],

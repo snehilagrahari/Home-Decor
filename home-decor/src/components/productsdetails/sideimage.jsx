@@ -14,7 +14,6 @@ function Sideimage() {
         }}
       >
         <div style={{ marginTop: "3px" }}>
-          {/* <img src="" alt="" /> */}
           <Image
             boxSize="100%"
             objectFit="cover"
@@ -23,7 +22,6 @@ function Sideimage() {
           />
         </div>
         <div style={{ marginTop: "8px" }}>
-          {/* <img src="" alt="" /> */}
           <Image
             boxSize="100%"
             objectFit="cover"
@@ -33,7 +31,6 @@ function Sideimage() {
         </div>
 
         <div style={{ marginTop: "8px" }}>
-          {/* <img src="" alt="" /> */}
           <Image
             boxSize="100%"
             objectFit="cover"

@@ -4,6 +4,7 @@ import { Routes,Route } from 'react-router-dom'
 import CartPage from '../pages/CartPage'
 import Homepage from '../pages/Homepage'
 import NotFound from '../pages/NotFound'
+import OrderPage from '../pages/OrderPage'
 import Product from '../pages/Product'
 import Search from '../pages/Search'
 
@@ -16,6 +17,7 @@ const AllRoutes = () => {
             <Route path="/search" element={<Search />} />
             <Route path="/product/:id" element={<Product />} />
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/orders" element={<OrderPage />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
     </div>

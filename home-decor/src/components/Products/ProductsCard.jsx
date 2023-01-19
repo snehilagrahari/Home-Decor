@@ -22,7 +22,11 @@ const ProductsCard = ({ images, title, price, discount }) => {
           <Image
             display={"block"}
             margin={"auto"}
-            boxSize={250}
+            boxSize={{
+              sm: "40",
+              md: "100",
+              lg: "250",
+            }}
             src={images[0]}
             alt={title}
           />

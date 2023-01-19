@@ -7,9 +7,12 @@ import {
 import thunk from "redux-thunk";
 
 import { productsReducer } from "./products/products.reducer";
+import { cartReducer } from "./Cart/cart.reducer"
+
 
 const rootReducer = combineReducers({
   products: productsReducer,
+  cart:cartReducer
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

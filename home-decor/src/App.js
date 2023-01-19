@@ -1,16 +1,11 @@
 
 import "./App.css";
-import Products from "./components/Products/Products";
-import Productdetails from "./components/productsdetails/productdetails";
-import Homepage from './pages/Homepage';
+import AllRoutes from "./components/AllRoutes";
 
 function App() {
   return (
     <div className="App">
-      <Products />
-      <Homepage />
-      <Productdetails/>
-      
+      <AllRoutes />
     </div>
   );
 }

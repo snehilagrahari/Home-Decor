@@ -5,7 +5,7 @@ function Discreption() {
   return (
     <>
       <div>
-        <Heading>Product Description </Heading>
+        <Heading size={"40px"}>Product Description </Heading>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
           totam illum reiciendis debitis! Perspiciatis enim doloribus inventore

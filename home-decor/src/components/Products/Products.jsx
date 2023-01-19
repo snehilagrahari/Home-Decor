@@ -18,28 +18,52 @@ import ProductsCard from "./ProductsCard";
 import Pagination from "./Pagination";
 
 const Products = () => {
-  const [data, setData] = useState([]);
-  const [totalPage, setTotalPage] = useState(0);
+  const [products, setProducts] = useState([]);
+  const [totalPage, setTotalPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productPerPage, setProductPerPage] = useState(15);
-
-  const getProductsAPI = async () => {
-    let responce = await fetch(
-      `https://mock-server-ge69.onrender.com/api/Products`
-    );
-    let d = await responce.json();
-    setData(d);
-    setTotalPage(d.length);
-  };
+  const [productsPerPage, setProductsPerPage] = useState(15);
+  const [sort, setSort] = useState("");
 
   useEffect(() => {
+    const getTotalProductsProductsAPI = async () => {
+      let responce = await fetch(
+        `https://mock-server-ge69.onrender.com/api/Products`
+      );
+      let d = await responce.json();
+      setTotalPage(Math.ceil(d.length / productsPerPage));
+    };
+    getTotalProductsProductsAPI();
+  }, [productsPerPage]);
+
+  useEffect(() => {
+    const getProductsAPI = async () => {
+      let responce = await fetch(
+        `https://mock-server-ge69.onrender.com/api/Products?_page=${currentPage}&_limit=${productsPerPage}&${sort}`
+      );
+      let d = await responce.json();
+      setProducts(d);
+    };
     getProductsAPI();
-  }, []);
+  }, [currentPage, productsPerPage, sort]);
 
-  const indexOfLastPage = currentPage * productPerPage;
-  const indexOfFirstPage = indexOfLastPage - productPerPage;
-  const currentProducts = data.slice(indexOfFirstPage, indexOfLastPage);
+  const paginate = (num) => {
+    setCurrentPage(num);
+  };
 
+  const handleSort = (value) => {
+    setSort(value);
+  };
+
+  const categoryObj = {};
+
+  for (let i = 0; i < products.length; i++) {
+    if (categoryObj[products[i].category] === undefined) {
+      categoryObj[products[i].category] = 1;
+    } else {
+      categoryObj[products[i].category]++;
+    }
+  }
+  console.log(categoryObj);
   return (
     <Box
       display={"flex"}
@@ -219,32 +243,57 @@ const Products = () => {
             <Text fontSize={20} fontWeight={500}>
               Sort By:
             </Text>
-            <Button variant={"solid"} bg="#902735" colorScheme={"red"}>
+            <Button
+              variant={"solid"}
+              bg={
+                sort.includes("_sort=price&_order=asc") ? "orange" : "#902735"
+              }
+              colorScheme={"red"}
+              onClick={() => handleSort("_sort=price&_order=asc")}
+            >
               Price: Low to High
             </Button>
-            <Button variant={"solid"} bg="#902735" colorScheme={"red"}>
+            <Button
+              variant={"solid"}
+              bg={
+                sort.includes("_sort=price&_order=desc") ? "orange" : "#902735"
+              }
+              colorScheme={"red"}
+              onClick={() => handleSort("_sort=price&_order=desc")}
+            >
               Price: High to Low
             </Button>
-            <Button variant={"solid"} bg="#902735" colorScheme={"red"}>
+            <Button
+              variant={"solid"}
+              bg={
+                sort.includes("_sort=discount&_order=desc")
+                  ? "orange"
+                  : "#902735"
+              }
+              colorScheme={"red"}
+              onClick={() => handleSort("_sort=discount&_order=desc")}
+            >
               Discount
             </Button>
           </Box>
           <Text fontSize={20} fontWeight={500}>
-            Showing 1-458
+            Showing {`${currentPage} - ${totalPage}`}
           </Text>
         </Box>
 
         <Box>
           <Grid gridTemplateColumns="repeat(3,1fr)" gap={5}>
-            {currentProducts &&
-              currentProducts.map((prod) => (
-                <ProductsCard key={prod.id} {...prod} />
-              ))}
+            {products &&
+              products.map((prod) => <ProductsCard key={prod.id} {...prod} />)}
           </Grid>
         </Box>
 
         <Box>
-          {/* <Pagination /> */}
+          <Pagination
+            currentPage={currentPage}
+            totalPage={totalPage}
+            paginate={paginate}
+          />
         </Box>
       </Box>
     </Box>

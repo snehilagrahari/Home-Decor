@@ -1,11 +1,11 @@
-import {  Box, Button, Flex, Image } from '@chakra-ui/react'
+import {   Button, Flex, Image } from '@chakra-ui/react'
 import React from 'react'
 import { useEffect } from 'react'
 import carousel1 from '../assets/carousel1.jpg'
 import carousel2 from '../assets/carousel2.jpg'
 import carousel3 from '../assets/carousel3.jpg'
 import {BiLeftArrowCircle,BiRightArrowCircle} from 'react-icons/bi'
-import { Link, useNavigate } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 
 const imageData= [
     {

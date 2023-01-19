@@ -7,12 +7,14 @@ import {
   Heading,
   Text,
   Button,
+  Box,
 } from "@chakra-ui/react";
 
 import { Icon } from "@chakra-ui/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
-const ProductsCard = ({ images, title, price }) => {
+const ProductsCard = ({ images, title, price, discount }) => {
+  const discountedPrice = Math.ceil(price - (discount / 100) * price);
   return (
     <>
       <Card maxW="sm" border={"1px solid red"}>
@@ -33,9 +35,30 @@ const ProductsCard = ({ images, title, price }) => {
             >
               {title}
             </Heading>
-            <Text color="orange" fontSize="18px" fontWeight={"bold"}>
-              ₹ {price}
-            </Text>
+            {discount === 0 ? (
+              <Text color="orange" fontSize="18px" fontWeight={"bold"}>
+                ₹ {price}
+              </Text>
+            ) : (
+              <Box
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                gap={3}
+                margin={"auto"}
+                textAlign={"center"}
+              >
+                <Text color="orange" fontSize="18px" fontWeight={"bold"}>
+                  ₹ {discountedPrice}
+                </Text>
+                <Text textDecoration={"line-through"} color={"gray"}>
+                  ₹ {price}
+                </Text>
+                <Text color={"red"} fontSize={15}>
+                  {discount}%off
+                </Text>
+              </Box>
+            )}
           </Stack>
           <Button colorScheme={"red"} bg="#902735" w={"100%"} gap={5}>
             <Icon as={AiOutlineShoppingCart} boxSize={6} />

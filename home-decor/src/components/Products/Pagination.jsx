@@ -14,9 +14,23 @@ const Pagination = ({ currentPage, totalPage, paginate }) => {
   return (
     <Box
       border={"2px solid red"}
-      display={"flex"}
-      justifyContent={"space-around"}
-      w={"50%"}
+      display={{
+        sm: "flex",
+        md: "flex",
+        lg: "flex",
+      }}
+      flexWrap={{
+        sm: "wrap",
+        md: "wrap",
+        lg: "nowrap",
+      }}
+      justifyContent={"center"}
+      alignItems={"center"}
+      gap={{
+        sm: "10",
+        md: "8",
+        lg: "5",
+      }}
       margin={"auto"}
     >
       <Button

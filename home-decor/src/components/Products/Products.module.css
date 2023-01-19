@@ -1,0 +1,31 @@
+/* meidum screens */
+@media all and (min-width: 768px) and (max-width: 1024px) {
+}
+
+/* small screens */
+@media all and (min-width: 320px) and (max-width: 767px) {
+  .filterBox {
+    display: none;
+  }
+  .gridBoxMain {
+    width: 100% !important;
+    margin: auto !important;
+    border: 2px solid green !important;
+  }
+
+  .gridBox {
+    width: 100% !important;
+    margin: auto !important;
+    border: 2px solid green !important;
+  }
+
+  .gridBoxSort {
+    display: none !important;
+  }
+
+  .gridBoxText {
+    text-align: right !important;
+    display: flex !important;
+    justify-content: right !important;
+  }
+}

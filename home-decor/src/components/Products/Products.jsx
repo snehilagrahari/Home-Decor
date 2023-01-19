@@ -13,38 +13,48 @@ import {
   Heading,
   Stack,
   Text,
+  Drawer,
+  DrawerBody,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import ProductsCard from "./ProductsCard";
 import Pagination from "./Pagination";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getTotalProducts,
+  getGridProducts,
+} from "../../redux/products/products.action";
+import Loading from "./Loading";
+import Error from "./Error";
+import Styles from "./Products.module.css";
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
-  const [totalPage, setTotalPage] = useState(1);
+  const { loading, error, gridProducts,totalCount } = useSelector(
+    (store) => store.products
+  );
+
+  const dispatch = useDispatch();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = React.useRef();
+
+  //const [totalPage, setTotalPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(15);
   const [sort, setSort] = useState("");
 
-  useEffect(() => {
-    const getTotalProductsProductsAPI = async () => {
-      let responce = await fetch(
-        `https://mock-server-ge69.onrender.com/api/Products`
-      );
-      let d = await responce.json();
-      setTotalPage(Math.ceil(d.length / productsPerPage));
-    };
-    getTotalProductsProductsAPI();
-  }, [productsPerPage]);
+
 
   useEffect(() => {
-    const getProductsAPI = async () => {
-      let responce = await fetch(
-        `https://mock-server-ge69.onrender.com/api/Products?_page=${currentPage}&_limit=${productsPerPage}&${sort}`
-      );
-      let d = await responce.json();
-      setProducts(d);
-    };
-    getProductsAPI();
-  }, [currentPage, productsPerPage, sort]);
+    dispatch(getGridProducts(currentPage, productsPerPage, sort));
+  }, [currentPage, sort]);
+
+const totalPage = Math.ceil(totalCount/productsPerPage);
+
 
   const paginate = (num) => {
     setCurrentPage(num);
@@ -54,24 +64,20 @@ const Products = () => {
     setSort(value);
   };
 
-  const categoryObj = {};
-
-  for (let i = 0; i < products.length; i++) {
-    if (categoryObj[products[i].category] === undefined) {
-      categoryObj[products[i].category] = 1;
-    } else {
-      categoryObj[products[i].category]++;
-    }
-  }
-  console.log(categoryObj);
   return (
     <Box
       display={"flex"}
       justifyContent={"space-between"}
       padding={"30px 50px 30px 50px"}
       gap={5}
+      className={Styles.container}
     >
-      <Box border={"2px solid red"} w={"20%"} textAlign={"left"}>
+      <Box
+        border={"2px solid green"}
+        w={"20%"}
+        textAlign={"left"}
+        className={Styles.filterBox}
+      >
         <Heading fontSize={30} textAlign={"left"}>
           Filter by
         </Heading>
@@ -223,81 +229,206 @@ const Products = () => {
       <Box
         border={"2px solid red"}
         w={"80%"}
+        margin={"auto"}
         height={"fit-content"}
         display={"flex"}
         justifyContent={"flex-start"}
         flexDirection={"column"}
         gap={5}
+        className={Styles.gridBoxMain}
       >
         <Box
-          display={"flex"}
-          justifyContent={"space-between"}
-          alignItems={"center"}
+          display={{
+            lg: "none",
+            md: "",
+            sm: "",
+          }}
         >
+          <>
+            <Button ref={btnRef} colorScheme="teal" onClick={onOpen}>
+              Open
+            </Button>
+            <Drawer
+              isOpen={isOpen}
+              placement="right"
+              onClose={onClose}
+              finalFocusRef={btnRef}
+            >
+              <DrawerOverlay />
+              <DrawerContent>
+                <DrawerCloseButton />
+                <DrawerHeader>Create your account</DrawerHeader>
+
+                <DrawerBody>
+                  <Box
+                    display={"flex"}
+                    justifyContent={"space-between"}
+                    alignItems={"center"}
+                    w={"50%"}
+                    className={Styles.gridBoxSort}
+                  >
+                    <Text fontSize={20} fontWeight={500}>
+                      Sort By:
+                    </Text>
+                    <Button
+                      variant={"solid"}
+                      bg={
+                        sort.includes("_sort=price&_order=asc")
+                          ? "orange"
+                          : "#902735"
+                      }
+                      colorScheme={"red"}
+                      onClick={() => handleSort("_sort=price&_order=asc")}
+                    >
+                      Price: Low to High
+                    </Button>
+                    <Button
+                      variant={"solid"}
+                      bg={
+                        sort.includes("_sort=price&_order=desc")
+                          ? "orange"
+                          : "#902735"
+                      }
+                      colorScheme={"red"}
+                      onClick={() => handleSort("_sort=price&_order=desc")}
+                    >
+                      Price: High to Low
+                    </Button>
+                    <Button
+                      variant={"solid"}
+                      bg={
+                        sort.includes("_sort=discount&_order=desc")
+                          ? "orange"
+                          : "#902735"
+                      }
+                      colorScheme={"red"}
+                      onClick={() => handleSort("_sort=discount&_order=desc")}
+                    >
+                      Discount
+                    </Button>
+                  </Box>
+                </DrawerBody>
+              </DrawerContent>
+            </Drawer>
+          </>
+        </Box>
+        {loading ? (
+          <Loading />
+        ) : error ? (
+          <Error />
+        ) : (
           <Box
             display={"flex"}
-            justifyContent={"space-between"}
-            alignItems={"center"}
-            w={"50%"}
+            justifyContent={"flex-start"}
+            flexDirection={"column"}
+            gap={5}
+            className={Styles.gridBox}
           >
-            <Text fontSize={20} fontWeight={500}>
-              Sort By:
-            </Text>
-            <Button
-              variant={"solid"}
-              bg={
-                sort.includes("_sort=price&_order=asc") ? "orange" : "#902735"
-              }
-              colorScheme={"red"}
-              onClick={() => handleSort("_sort=price&_order=asc")}
+            <Box
+              display={"flex"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
             >
-              Price: Low to High
-            </Button>
-            <Button
-              variant={"solid"}
-              bg={
-                sort.includes("_sort=price&_order=desc") ? "orange" : "#902735"
-              }
-              colorScheme={"red"}
-              onClick={() => handleSort("_sort=price&_order=desc")}
-            >
-              Price: High to Low
-            </Button>
-            <Button
-              variant={"solid"}
-              bg={
-                sort.includes("_sort=discount&_order=desc")
-                  ? "orange"
-                  : "#902735"
-              }
-              colorScheme={"red"}
-              onClick={() => handleSort("_sort=discount&_order=desc")}
-            >
-              Discount
-            </Button>
+              <Box
+                display={"flex"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+                w={"50%"}
+                className={Styles.gridBoxSort}
+              >
+                <Text fontSize={20} fontWeight={500}>
+                  Sort By:
+                </Text>
+                <Button
+                  variant={"solid"}
+                  bg={
+                    sort.includes("_sort=price&_order=asc")
+                      ? "orange"
+                      : "#902735"
+                  }
+                  colorScheme={"red"}
+                  onClick={() => handleSort("_sort=price&_order=asc")}
+                >
+                  Price: Low to High
+                </Button>
+                <Button
+                  variant={"solid"}
+                  bg={
+                    sort.includes("_sort=price&_order=desc")
+                      ? "orange"
+                      : "#902735"
+                  }
+                  colorScheme={"red"}
+                  onClick={() => handleSort("_sort=price&_order=desc")}
+                >
+                  Price: High to Low
+                </Button>
+                <Button
+                  variant={"solid"}
+                  bg={
+                    sort.includes("_sort=discount&_order=desc")
+                      ? "orange"
+                      : "#902735"
+                  }
+                  colorScheme={"red"}
+                  onClick={() => handleSort("_sort=discount&_order=desc")}
+                >
+                  Discount
+                </Button>
+              </Box>
+              <Text
+                fontSize={20}
+                fontWeight={500}
+                className={Styles.gridBoxText}
+              >
+                Showing {`${1+((currentPage*15)-15)}-${currentPage*15} of ${totalCount}`}
+              </Text>
+            </Box>
+
+            <Box>
+              <Grid
+                gap={5}
+                gridTemplateColumns={{
+                  sm: "repeat(1,1fr)",
+                  md: "repeat(2,1fr)",
+                  lg: "repeat(3,1fr)",
+                }}
+              >
+                {gridProducts &&
+                  gridProducts.map((prod) => (
+                    <ProductsCard key={prod.id} {...prod} />
+                  ))}
+              </Grid>
+            </Box>
+
+            <Box>
+              <Pagination
+                currentPage={currentPage}
+                totalPage={totalPage}
+                paginate={paginate}
+              />
+            </Box>
           </Box>
-          <Text fontSize={20} fontWeight={500}>
-            Showing {`${currentPage} - ${totalPage}`}
-          </Text>
-        </Box>
-
-        <Box>
-          <Grid gridTemplateColumns="repeat(3,1fr)" gap={5}>
-            {products &&
-              products.map((prod) => <ProductsCard key={prod.id} {...prod} />)}
-          </Grid>
-        </Box>
-
-        <Box>
-          <Pagination
-            currentPage={currentPage}
-            totalPage={totalPage}
-            paginate={paginate}
-          />
-        </Box>
+        )}
       </Box>
     </Box>
   );
 };
 
 export default Products;
+
+/*
+  // const [searchParams, setSearchParams] = useSearchParams();
+
+  // //console.log(searchParams.get("q, cate, sort, order")); by search param
+
+  // //setSearchParams(&price:216)
+
+
+  // //q category
+
+  // URL={
+  //   q : searchParams.get('q')||"",
+  //   category : searchParams.get('q')||"",
+}
+*/

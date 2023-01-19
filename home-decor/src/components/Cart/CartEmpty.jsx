@@ -3,6 +3,7 @@
 import { Box } from "@chakra-ui/react"
 import { Wrap,WrapItem,Center,Text,Image,Button} from "@chakra-ui/react"
 import { Link } from "react-router-dom"
+import Footer from "../Footer"
 const CartEmpty=()=>{
 
 
@@ -55,7 +56,7 @@ return(
 
 <Image w='200px' h='140px' src='https://www.craftsvilla.com/assets/group-6.png'/>
 <Text mt='16px'  fontSize="23px">Your Cart is Empty</Text>
-<Button mt='10px' bg='#902735' color={'white'} _hover={{ bg:'#902735'}}>CONTINUE SHOPPING</Button>
+<Button mt='10px' mb='50px' bg='#902735' color={'white'} _hover={{ bg:'#902735'}}>CONTINUE SHOPPING</Button>
     </Center>
 </WrapItem>
 
@@ -64,7 +65,7 @@ return(
 
 </Wrap>
 
-
+<Footer/>
 
 </Box>
 

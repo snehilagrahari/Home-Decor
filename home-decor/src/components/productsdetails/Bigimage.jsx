@@ -1,7 +1,8 @@
 import React from "react";
 import { Image } from "@chakra-ui/react";
 
-function Bigimage() {
+function Bigimage({ images }) {
+  // console.log(images[0]);
   return (
     <>
       <div
@@ -15,7 +16,7 @@ function Bigimage() {
         <Image
           boxSize="90%"
           objectFit="cover"
-          src="https://bit.ly/dan-abramov"
+          src={images[0]}
           alt="Dan Abramov"
         />
       </div>

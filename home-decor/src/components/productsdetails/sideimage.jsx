@@ -1,7 +1,7 @@
 import React from "react";
 import { Image } from "@chakra-ui/react";
 
-function Sideimage() {
+function Sideimage({ images }) {
   return (
     <>
       <div
@@ -13,31 +13,16 @@ function Sideimage() {
           margin: "10px",
         }}
       >
-        <div style={{ marginTop: "3px" }}>
-          <Image
-            boxSize="100%"
-            objectFit="cover"
-            src="https://bit.ly/dan-abramov"
-            alt="Dan Abramov"
-          />
-        </div>
-        <div style={{ marginTop: "8px" }}>
-          <Image
-            boxSize="100%"
-            objectFit="cover"
-            src="https://bit.ly/dan-abramov"
-            alt="Dan Abramov"
-          />
-        </div>
-
-        <div style={{ marginTop: "8px" }}>
-          <Image
-            boxSize="100%"
-            objectFit="cover"
-            src="https://bit.ly/dan-abramov"
-            alt="Dan Abramov"
-          />
-        </div>
+        {images?.map((el, i) => (
+          <div style={{ marginTop: "3px" }} key={i + 1}>
+            <Image
+              boxSize="100%"
+              objectFit="cover"
+              src={el}
+              alt="Dan Abramov"
+            />
+          </div>
+        ))}
       </div>
     </>
   );

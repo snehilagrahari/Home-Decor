@@ -5,19 +5,15 @@ import {
   applyMiddleware,
 } from "redux";
 import thunk from "redux-thunk";
+import { productReducer } from "./productdetails/reducer";
 
 import { productsReducer } from "./products/products.reducer";
 import { cartReducer } from "./Cart/cart.reducer"
 
 
-const rootReducer = combineReducers({
-  products: productsReducer,
-  cart:cartReducer
+let rootReducer = combineReducers({
+    product : productReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-export const store = legacy_createStore(
-  rootReducer,
-  composeEnhancer(applyMiddleware(thunk))
-);
+export  const store = legacy_createStore(rootReducer,composeEnhancer(applyMiddleware(thunk)));

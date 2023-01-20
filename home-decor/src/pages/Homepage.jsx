@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 import {  
     SimpleGrid,
@@ -24,63 +24,87 @@ import { Link } from 'react-router-dom'
 import CarouselCard from '../components/CarouselCard'
 
 
+import homedecor from "../assets/homedecor.jpg";
+import totebags from "../assets/totebags.jpg";
+import kitchenware from "../assets/kitchenware.jpg";
+import ceramic from "../assets/ceramic.jpg";
+import idols from "../assets/idols.jpg";
+
+import card1 from "../assets/card1.jpg";
+import card2 from "../assets/card2.jpg";
+import card3 from "../assets/card3.jpg";
+import card4 from "../assets/card4.jpg";
+import Footer from "../components/Footer";
+import Carousel from "../components/Carousel";
+import { Link } from "react-router-dom";
 
 const ShopByCategory = [
-    {
-        name : "Home Decor", 
-        img : homedecor
-    },
-    {
-        name : "Tote Bags", 
-        img : totebags
-    },
-    {
-        name : "Kitchen Ware", 
-        img : kitchenware
-    },
-    {
-        name : "Ceramic Mugs", 
-        img : ceramic
-    },
-    {
-        name : "Idols", 
-        img : idols
-    }
-]
+  {
+    name: "Home Decor",
+    img: homedecor,
+  },
+  {
+    name: "Tote Bags",
+    img: totebags,
+  },
+  {
+    name: "Kitchen Ware",
+    img: kitchenware,
+  },
+  {
+    name: "Ceramic Mugs",
+    img: ceramic,
+  },
+  {
+    name: "Idols",
+    img: idols,
+  },
+];
 
 const cardArr = [
-    {
-        link : '/search?q=',
-        image : card1
-    },
-    {
-        link : '/search?q=tote+bags',
-        image : card2
-    },
-    {
-        link : '/search?q=ceramic+mugs',
-        image : card3
-    },
-    {
-        link : '/search?q=home+decor',
-        image : card4
-    },
-]
+  {
+    link: "/search?q=",
+    image: card1,
+  },
+  {
+    link: "/search?q=tote+bags",
+    image: card2,
+  },
+  {
+    link: "/search?q=ceramic+mugs",
+    image: card3,
+  },
+  {
+    link: "/search?q=home+decor",
+    image: card4,
+  },
+];
 
 const BackgroundImage = (props) => {
-    let {text,image} = props;
-    return (
-        <Image src={image} alt={text} borderRadius="xl" width="100%" />
-    );
-}
+  let { text, image } = props;
+  return <Image src={image} alt={text} borderRadius="xl" width="100%" />;
+};
 
 const Homepage = () => {
-  return (
+
+
+     
+     
+    return (
+
     <div>
+
+    
         {/* section1 */}
         <Flex 
         direction={'row'} 
         width={'80%'}
+
+      {/* section1 */}
+      <Flex
+        direction={"row"}
+        width={"80%"}
+
         margin="auto"
         spacing={3} 
         justifyContent={'center'} 
@@ -122,8 +146,9 @@ const Homepage = () => {
 
         {/* section5 */}
         <Footer />
-    </div>
-  )
-}
 
-export default Homepage
+    </div>
+  );
+};
+
+export default Homepage;

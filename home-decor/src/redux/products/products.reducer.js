@@ -2,7 +2,6 @@ import {
   PRODUCTS_GET_LOADING,
   PRODUCTS_GET_ERROR,
   PRODUCTS_GET_SUCCESS,
-  TOTALPRODUCTS_GET_SUCCESS,
   PRODUCTS_RESET,
 } from "./products.type";
 
@@ -11,8 +10,7 @@ let initialState = {
   error: false,
   isLogin: false,
   gridProducts: [],
-  totalProducts: [],
-  totalCount: 0
+  totalCount: 0,
 };
 
 export const productsReducer = (state = initialState, { type, payload }) => {
@@ -37,14 +35,7 @@ export const productsReducer = (state = initialState, { type, payload }) => {
         loading: false,
         error: false,
         gridProducts: payload.data,
-        totalCount : Number(payload.headers['x-total-count']),
-      };
-    }
-    case TOTALPRODUCTS_GET_SUCCESS: {
-      return {
-        loading: false,
-        error: false,
-        totalProducts: payload,
+        totalCount: Number(payload.headers["x-total-count"]),
       };
     }
     case PRODUCTS_RESET: {

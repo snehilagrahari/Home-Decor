@@ -1,12 +1,23 @@
-
-
 import { Box } from "@chakra-ui/react"
 import { Wrap,WrapItem,Center,Text,Image,Button} from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 import Footer from "../Footer"
+import { getCartItems,removeItemFromCart,addItemToCart } from "../../redux/Cart/cart.actions";
+import { useDispatch } from "react-redux";
 const CartEmpty=()=>{
 
-//
+    const dispatch=useDispatch()
+   
+    
+    
+    
+    
+   
+    
+
+
+
+
 return(
 
 

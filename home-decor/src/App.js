@@ -5,6 +5,11 @@ import AllRoutes from "./components/AllRoutes";
 import { Navbar1 } from "./components/Navbar/Navbar";
 import { Login } from "./redux/auth/auth.actions";
 
+import Cartfull from "./components/Cart/Cartfull";
+
+import Search from "./pages/Search";
+
+
 function App() {
 
   const dispatch = useDispatch();
@@ -21,6 +26,7 @@ function App() {
     <div >
       <Navbar1 />
       <AllRoutes />
+
     </div>
   );
 }

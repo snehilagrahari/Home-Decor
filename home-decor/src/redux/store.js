@@ -8,14 +8,14 @@ import thunk from "redux-thunk";
 import { orderReducer } from "./order/order.reducer";
 import { productReducer } from "./productdetails/reducer";
 
-import { productsReducer } from "./products/products.reducer";
-import { cartReducer } from "./Cart/cart.reducer"
+// import { productsReducer } from "./products/products.reducer";
+// import { cartReducer } from "./Cart/cart.reducer"
 
 
 let rootReducer = combineReducers({
 
-    userOrder : orderReducer
-    product : productReducer,
+    userOrder : orderReducer,
+    Productdetails: productReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

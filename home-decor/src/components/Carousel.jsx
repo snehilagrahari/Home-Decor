@@ -34,9 +34,7 @@ const Carousel = () => {
 
     const HandleRightClick = ()=>{
         var current = document.getElementById('carousel-image').scrollLeft;
-        console.log(current);
         var w = window.innerWidth;
-        console.log(w);
         if(current>(1.5*w))
         {
             document.getElementById('carousel-image').scrollTo({

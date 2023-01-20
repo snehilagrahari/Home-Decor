@@ -43,7 +43,7 @@ export const Navbar1 = () => {
               <MenuItem>My Account</MenuItem>
               <MenuItem>My Orders</MenuItem>
               <MenuItem>My Cart</MenuItem>
-              <MenuItem>SignOut</MenuItem>
+              <MenuItem onClick={()=>{isAuth=false}}>SignOut</MenuItem>
             </MenuList>
           </Menu> : <p>Sign In / Register</p>}
 

@@ -1,16 +1,19 @@
 import React from "react";
 import { Heading } from "@chakra-ui/react";
 
-function Discreption() {
+function Discreption(props) {
+  let { description } = props;
   return (
     <>
-      <div>
-        <Heading size={"40px"}>Product Description </Heading>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
-          totam illum reiciendis debitis! Perspiciatis enim doloribus inventore
-          assumenda. Obcaecati aspernatur eaque facilis eius, voluptate
-          repellendus perspiciatis nesciunt delectus! Ad, reiciendis.
+      <div style={{position:"relative" ,left:"2%" ,marginBottom:"50px"}}>
+        <Heading
+          size={"40px"}
+          style={{ marginTop: "20px", fontWeight: "bolder !important" }}
+        >
+          Product Description{" "}
+        </Heading>
+        <p style={{ marginBottom: "15px", color: "#777", fontSize: "14px" }}>
+          {description}
         </p>
       </div>
     </>

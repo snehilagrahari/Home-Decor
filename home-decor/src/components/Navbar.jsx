@@ -11,10 +11,6 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
 } from '@chakra-ui/react'
 
 import { ChevronDownIcon } from '@chakra-ui/icons'
@@ -29,7 +25,7 @@ export const Navbar1 = () => {
   const handleClick=()=>{
     dispatch({type : AUTH_SIGN_OUT})
   }
-  console.log(isAuth)
+  // console.log(isAuth)
   return (
     <div className={styles.main_div_1}>
       <div className={styles.img_div}>
@@ -44,7 +40,7 @@ export const Navbar1 = () => {
         <div className='sign_div'>
           <span><ImUser size={'25px'} /></span>
           {isAuth?<Menu>
-            <MenuButton as={"Button"} rightIcon={<ChevronDownIcon />}>
+            <MenuButton>
               Account
             </MenuButton>
             <MenuList color={'black'}>

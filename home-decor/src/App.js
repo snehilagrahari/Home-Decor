@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <Navbar1 />
-     hfsdkjfhsdkhdsakjfhsadjlg
+  
      <div style={{minHeight:"100vh"}}></div>
     </div>
   );

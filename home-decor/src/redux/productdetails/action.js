@@ -23,7 +23,7 @@ export const products=(id)=>async (dispatch)=>{
 
     try{
        let res = await productapicall(id);
-       console.log("HINDI",res)
+    //    console.log("HINDI",res.data)
             dispatch(pSuceess(res.data));
 
     }

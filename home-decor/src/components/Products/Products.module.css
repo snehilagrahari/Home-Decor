@@ -1,31 +1,168 @@
+.main {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 30px 60px 60px;
+  gap: 20px;
+}
+
+.filter {
+  width: 15%;
+}
+
+.grid {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.grid1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 17px;
+  padding: 0px 10px;
+}
+
+.grid1Showing {
+  font-size: 18px;
+}
+
+.gridCard {
+  width: 100%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.loading {
+  transform: scale(4);
+  width: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 0px;
+}
+
+.sortFloat {
+  display: none;
+}
+
 /* meidum screens */
 @media all and (min-width: 768px) and (max-width: 1024px) {
+  .main {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 10px;
+  }
+
+  .filter {
+    width: 20%;
+  }
+
+  .grid {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .grid1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 17px;
+    padding: 0px 10px;
+  }
+
+  .grid1Showing {
+    font-size: 14px;
+  }
+
+  .gridPagination > * {
+    transform: scale(0.7);
+  }
 }
 
 /* small screens */
 @media all and (min-width: 320px) and (max-width: 767px) {
-  .filterBox {
+  .main {
+    width: 95%;
+    margin: auto;
+    display: block;
+    padding: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .filter {
+    width: 0;
     display: none;
   }
-  .gridBoxMain {
-    width: 100% !important;
-    margin: auto !important;
-    border: 2px solid green !important;
+
+  .grid1Sort {
+    width: 0;
+    display: none;
   }
 
-  .gridBox {
-    width: 100% !important;
-    margin: auto !important;
-    border: 2px solid green !important;
+  .grid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0px;
   }
 
-  .gridBoxSort {
-    display: none !important;
+  .grid1 {
+    display: block;
+    margin: auto;
+    font-size: 20px;
+    padding: 0px;
   }
 
-  .gridBoxText {
-    text-align: right !important;
-    display: flex !important;
-    justify-content: right !important;
+  .gridCard {
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .gridPagination > * {
+    transform: scale(0.6);
+  }
+
+  .sortFloat {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 1;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .grid1Sort {
+    display: none;
   }
 }

@@ -1,27 +1,39 @@
 import React from "react";
-import { Image } from "@chakra-ui/react";
+import { Box, Image } from "@chakra-ui/react";
+import { useState } from "react";
 
-function Sideimage({ images }) {
+function Sideimage({ images, onClick, current }) {
+  const [hover, sethover] = useState(false);
+
   return (
     <>
       <div
         style={{
           display: "flex-inline",
           flexDirection: "column",
-          // border: "1px solid red",
           width: "25%",
           margin: "10px",
         }}
       >
         {images?.map((el, i) => (
-          <div style={{ marginTop: "3px" }} key={i + 1}>
+          <Box
+            marginTop="3px"
+            border="3px solid white"
+            _hover={{border: "3px solid green"}}
+            borderBottom={i == current ? "3px solid red" : "3px solid white"}
+            padding= "3px"
+            cursor = "pointer"
+            key={i + 1}
+            onClick={() => onClick(i)}
+            
+          >
             <Image
               boxSize="100%"
               objectFit="cover"
               src={el}
               alt="Dan Abramov"
             />
-          </div>
+          </Box>
         ))}
       </div>
     </>

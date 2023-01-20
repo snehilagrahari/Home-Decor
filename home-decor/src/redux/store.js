@@ -14,7 +14,7 @@ import { cartReducer } from "./Cart/cart.reducer"
 
 let rootReducer = combineReducers({
 
-    userOrder : orderReducer
+    userOrder : orderReducer,
     product : productReducer,
 });
 

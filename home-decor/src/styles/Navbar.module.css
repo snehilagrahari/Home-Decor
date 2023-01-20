@@ -1,18 +1,21 @@
 .main_div_1 {
     /* border: 1px solid; */
-    width: 98.9vw;
+    width: 100vw;
     height: 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    background-color: #902735;
+    color: white;
     font-family: sans-serif;
+    
 }
 
 .img_div {
     /* border: 1px solid; */
     width: 20%;
-
+    
 }
 
 .img_div>img {
@@ -23,24 +26,32 @@
 }
 
 .input_icon {
-    /* border: 1px solid red; */
+    /* border: 1px solid white; */
+    position: relative;
     display: flex;
     width: 25%;
-    height: 80%;
+    height: 85%;
     justify-content: center;
     align-items: center;
-    background-color: #DDDDDD;
+    background-color: #902735;
+    color: white;
     margin-left: -350px;
 }
 
 .input_icon>input {
-    width: 80%;
-    border: none;
+    width: 70%;
+    height:70%;
+    border: 1px solid white;
     border-left: 1px solid;
-    background-color: #DDDDDD;
+    background-color: #902735;
+    color:white;
+    margin-right: 2%;
+    margin-left: 2%;
+    border-radius: 7px;
 }
 
 .last_div {
+    position: relative;
     display: flex;
     /* border: 1px solid red; */
     justify-content: center;
@@ -55,44 +66,35 @@
     gap: 10px;
 }
 
-.main_div_2 {
-    border: 1px solid black;
-    width: 100vw;
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-style: sans-serif;
-    background-color: #902735;
-    
+@media screen and (min-width: 425.5px) and (max-width:768px) {
+    .img_div{
+        width: 35%;
+    }
+    .input_icon{
+        display: none;
+    }
 }
-
-.main_div_2>div {
-    width: 30%;
-    height: 100%;
-    /* border: 1px solid red; */
-    display: flex;
-    justify-content: space-around;
-}
-
-.main_div_2>div>div {
-    /* border: 1px solid red; */
-    display: grid;
-    align-items: center;
-    font-size: 20px;
-    font-weight: 500;
-    color: whitesmoke;
-}
-
-.main_div_2>div>div:hover {
-background-color: whitesmoke;
-color:#902735;
-}
-.affix{
-    top: 0;
-    width: 100%;
-    z-index: 9999 !important;
-}
-.affix+.container-fluid{
-    padding: 70px;
+@media screen and (min-width: 320px) and (max-width:425.5px) {
+    .img_div{
+        width: 40%;
+        height: 99%;
+        /* border: 1px solid white; */
+    }
+    .img_div>img{
+        width: 50%;
+    }
+    .input_icon{
+        display: none;
+    }
+    .last_div {
+        position: relative;
+        display: flex;
+        /* border: 1px solid red; */
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+    }
+    .last_div>div>p{
+        display: none;
+    }
 }

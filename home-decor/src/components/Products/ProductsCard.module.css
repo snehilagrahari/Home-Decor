@@ -1,0 +1,231 @@
+.mainCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.mainCard:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.image {
+  width: 60%;
+  height: 250px;
+}
+
+.image > img {
+  width: 100%;
+  height: 100%;
+}
+
+.title {
+  width: 300px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 5px 0px;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  color: orange;
+}
+
+.discountedPrice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.discountedPrice > div:nth-child(1) {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  color: orange;
+}
+
+.discountedPrice > div:nth-child(2) {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 26px;
+  color: red;
+}
+
+.cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 20px;
+  background-color: #902735;
+  border-radius: 10px;
+  width: 100%;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.cart:hover {
+  background-color: #560712;
+}
+
+/* meidum screens */
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .mainCard {
+    padding: 20px 10px;
+  }
+
+  .image {
+    width: 70%;
+    height: 100px;
+  }
+
+  .image > img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .title {
+    width: 200px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0px;
+  }
+
+  .price {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 26px;
+    color: orange;
+  }
+
+  .discountedPrice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+  }
+
+  .discountedPrice > div:nth-child(1) {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 26px;
+    color: orange;
+  }
+
+  .discountedPrice > div:nth-child(2) {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 26px;
+    color: red;
+  }
+
+  .cart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 20px;
+    background-color: #902735;
+    border-radius: 10px;
+    width: 100%;
+    padding: 5px;
+    color: white;
+    cursor: pointer;
+  }
+}
+
+/* small screens */
+@media all and (min-width: 320px) and (max-width: 767px) {
+  .mainCard {
+    padding: 20px 5px;
+  }
+
+  .image {
+    width: 70%;
+    height: 100px;
+  }
+
+  .image > img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .title {
+    width: 100px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0px;
+  }
+
+  .price {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 26px;
+    color: orange;
+  }
+
+  .discountedPrice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+  }
+
+  .discountedPrice > div:nth-child(1) {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 26px;
+    color: orange;
+  }
+
+  .discountedPrice > div:nth-child(2) {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 26px;
+    color: red;
+  }
+
+  .cart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 20px;
+    background-color: #902735;
+    border-radius: 10px;
+    width: 100%;
+    padding: 5px;
+    color: white;
+    cursor: pointer;
+  }
+}

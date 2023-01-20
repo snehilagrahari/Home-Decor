@@ -1,0 +1,34 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.main button {
+  background-color: #902735;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.buttons button {
+  color: #902735;
+  background-color: white;
+  border: 1px solid #902735;
+}
+
+/* meidum screens */
+@media all and (min-width: 768px) and (max-width: 1024px) {
+}
+
+/* small screens */
+@media all and (min-width: 320px) and (max-width: 767px) {
+}

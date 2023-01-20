@@ -13,6 +13,10 @@ import {authReducer} from "./auth/auth.reducer";
 
 let rootReducer = combineReducers({
 
+  cart:cartReducer,
+
+
+
     userOrder : orderReducer,
     product : productReducer,
   products: productsReducer,

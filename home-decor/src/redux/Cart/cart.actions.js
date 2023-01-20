@@ -30,7 +30,7 @@ return  axios.get("https://mock-server-ge69.onrender.com/api/Orders")
 export const  getCartItems=()=>async(dispatch)=>{
     dispatch({type:GET_CART_ITEMS_LOADING})
     try {
-        let resp=await axios.get("https://mock-server-ge69.onrender.com/api/Orders")
+        let resp=await axios.get("https://mock-server-ge69.onrender.com/api/CartItem")
 
         dispatch({type:GET_CART_ITEMS_SUCCESS,payload:resp.data})
         console.log('hello',resp.data)
@@ -57,7 +57,7 @@ export const  getCartItems=()=>async(dispatch)=>{
 export const addItemToCart=(info)=>(dispatch)=>{
 
     dispatch({type:ADD_ITEM_TO_CART_LOADING})
-return  axios.post("https://mock-server-ge69.onrender.com/api/Orders",{...info,count:1})
+return  axios.post("https://mock-server-ge69.onrender.com/api/CartItem",{...info,count:1,fixed:info.price})
 .then(({data})=>{
     dispatch({type:ADD_ITEM_TO_CART_SUCCESS,payload:data})
 
@@ -70,7 +70,7 @@ return  axios.post("https://mock-server-ge69.onrender.com/api/Orders",{...info,c
 export const removeItemFromCart=(cartId)=>(dispatch)=>{
 
     dispatch({type:REMOVE_CART_ITEMS_LOADING})
-return  axios.delete(`https://mock-server-ge69.onrender.com/api/Orders/${cartId}`)
+return  axios.delete(`https://mock-server-ge69.onrender.com/api/CartItem/${cartId}`)
 .then((re)=>{
     dispatch({type:REMOVE_CART_ITEMS_SUCCESS,payload:{id:cartId}})
 })
@@ -83,7 +83,7 @@ return  axios.delete(`https://mock-server-ge69.onrender.com/api/Orders/${cartId}
 export const updateCartItem=(cartId,update)=>(dispatch)=>{
     dispatch({type:UPDATE_CART_ITEMS_LOADING})
     
-    return axios.patch(`https://mock-server-ge69.onrender.com/api/Orders/${cartId}`,{
+    return axios.patch(`https://mock-server-ge69.onrender.com/api/CartItem/${cartId}`,{
        
     
     ...update,

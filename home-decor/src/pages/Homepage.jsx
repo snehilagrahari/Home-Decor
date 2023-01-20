@@ -64,12 +64,25 @@ const BackgroundImage = (props) => {
 };
 
 const Homepage = () => {
-  return (
+
+
+     
+     
+    return (
+
     <div>
+
+    
+        {/* section1 */}
+        <Flex 
+        direction={'row'} 
+        width={'80%'}
+
       {/* section1 */}
       <Flex
         direction={"row"}
         width={"80%"}
+
         margin="auto"
         spacing={3}
         justifyContent={"center"}

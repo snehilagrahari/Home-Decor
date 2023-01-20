@@ -4,7 +4,7 @@ import { ImUser, ImCart } from "react-icons/im"
 import { BsSuitHeart } from 'react-icons/bs'
 import styles from "../styles/Navbar.module.css"
 import { Logout } from '../redux/auth/auth.actions'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
   Menu,
@@ -17,11 +17,19 @@ import {
   MenuDivider,
 } from '@chakra-ui/react'
 
-import {ChevronDownIcon} from '@chakra-ui/icons'
+import { ChevronDownIcon } from '@chakra-ui/icons'
+import { AUTH_SIGN_OUT } from '../redux/auth/auth.types'
 
 
 export const Navbar1 = () => {
-  const isAuth = useSelector((store) => store.auth.data.isAuthenticted)
+  const isAuth = useSelector((store) => store.auth.isAuthenticated)
+
+  const dispatch = useDispatch();
+
+  const handleClick=()=>{
+    dispatch({type : AUTH_SIGN_OUT})
+  }
+  console.log(isAuth)
   return (
     <div className={styles.main_div_1}>
       <div className={styles.img_div}>
@@ -34,26 +42,22 @@ export const Navbar1 = () => {
       </div>
       <div className={styles.last_div}>
         <div className='sign_div'>
-          <span><ImUser /></span>
-          {isAuth ? <Menu>
-            <MenuButton as={'Button'} rightIcon={<ChevronDownIcon />}>
+          <span><ImUser size={'25px'} /></span>
+          {isAuth?<Menu>
+            <MenuButton as={"Button"} rightIcon={<ChevronDownIcon />}>
               Account
             </MenuButton>
-            <MenuList>
+            <MenuList color={'black'}>
               <MenuItem>My Account</MenuItem>
               <MenuItem>My Orders</MenuItem>
               <MenuItem>My Cart</MenuItem>
-              <MenuItem onClick={()=>{isAuth=false}}>SignOut</MenuItem>
+              <MenuItem onClick={handleClick}>SignOut</MenuItem>
             </MenuList>
-          </Menu> : <p>Sign In / Register</p>}
+          </Menu>:<p>Sign in/Register</p> }
 
         </div>
-        <div className={styles.wishlist_div}>
-          <span><BsSuitHeart /></span>
-          <p>Wishlist </p>
-        </div>
         <div className={styles.cart_div}>
-          <span><ImCart /></span>
+          <span><ImCart size={'25px'} /></span>
           <p>Cart</p>
         </div>
       </div>

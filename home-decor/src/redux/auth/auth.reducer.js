@@ -10,7 +10,7 @@ import {
 export const authInitalState = {
   loading: false,
   data: { },
-  isAuthenticated: false,
+  isAuthenticated: true,
   error: false,
 };
 
@@ -42,7 +42,7 @@ export const authReducer = (state = authInitalState, { type, payload }) => {
     }
 
     case AUTH_SIGN_OUT: {
-      return  authInitalState;
+      return {...state, isAuthenticated:false};
     }
 
     default: {

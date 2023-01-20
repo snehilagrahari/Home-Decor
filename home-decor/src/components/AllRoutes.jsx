@@ -7,6 +7,7 @@ import Search from "../pages/Search";
 import OrderPage from '../pages/OrderPage'
 import Products from "./Products/Products";
 import Productdetails from "./productsdetails/productdetails";
+import Login from "./Login/Login";
 
 const AllRoutes = () => {
   return (
@@ -19,6 +20,7 @@ const AllRoutes = () => {
         <Route path="/cart" element={<CartPage />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/orders" element={<OrderPage />} />
+        <Route path="/login" element={<Login/>}/>
       </Routes>
     </div>
   );

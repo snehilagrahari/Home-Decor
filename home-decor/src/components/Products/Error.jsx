@@ -1,23 +1,30 @@
-import { Box, Spinner } from "@chakra-ui/react";
+import { Spinner } from "@chakra-ui/react";
 import React from "react";
 
 const Error = () => {
   return (
-    <Box
-      display={"flex"}
-      alignItems={"center"}
-      justifyContent={"center"}
-      border={"2px solid red"}
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        margin: "auto",
+      }}
     >
       <Spinner
-        thickness="4px"
-        speed="1s"
+        thickness="1px"
+        speed="2s"
         emptyColor="gray.200"
         color="red.500"
         size="xl"
-        boxSize={60}
+        boxSize={{
+          sm: "20",
+          md: "40",
+          lg: "60",
+        }}
       />
-    </Box>
+    </div>
   );
 };
 

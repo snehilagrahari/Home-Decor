@@ -9,14 +9,15 @@ import { orderReducer } from "./order/order.reducer";
 import { productReducer } from "./productdetails/reducer";
 
 import { productsReducer } from "./products/products.reducer";
-import { cartReducer } from "./Cart/cart.reducer"
-
+import { cartReducer } from "./Cart/cart.reducer";
 
 let rootReducer = combineReducers({
-
-    userOrder : orderReducer
-    product : productReducer,
+  userOrder: orderReducer,
+  products: productsReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-export  const store = legacy_createStore(rootReducer,composeEnhancer(applyMiddleware(thunk)));
+export const store = legacy_createStore(
+  rootReducer,
+  composeEnhancer(applyMiddleware(thunk))
+);

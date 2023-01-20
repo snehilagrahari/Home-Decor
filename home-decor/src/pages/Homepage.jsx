@@ -74,8 +74,14 @@ const BackgroundImage = (props) => {
 }
 
 const Homepage = () => {
-  return (
+
+
+     
+     
+    return (
+
     <div>
+    
         {/* section1 */}
         <Flex 
         direction={'row'} 

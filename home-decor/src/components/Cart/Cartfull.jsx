@@ -3,18 +3,19 @@ import React from "react"
 import { useState } from "react"
 import { Box } from "@chakra-ui/react"
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+
 import { useSelector } from "react-redux";
-import { getCartItems,removeItemFromCart } from "../../redux/Cart/cart.actions";
+import { getCartItems,removeItemFromCart,addItemToCart } from "../../redux/Cart/cart.actions";
 import { Wrap,WrapItem,Center,Text,Image,Button,SimpleGrid} from "@chakra-ui/react"
 import { updateCartItem } from "../../redux/Cart/cart.actions";
 import Footer from "../Footer";
 import { Link } from "react-router-dom"
 import { useEffect } from "react"
 import CartEmpty from "./CartEmpty";
+
 const Cartfull=()=>{
     const dispatch=useDispatch()
-    const navigate=useNavigate()
+   
 
     const{loading,error,datas}=useSelector((state)=>state.cart)
     const date = new Date()
@@ -35,7 +36,7 @@ const Cartfull=()=>{
 useEffect(()=>{
     dispatch(getCartItems())
    
-  },[])
+  },[dispatch])
  
   
 
@@ -43,21 +44,27 @@ useEffect(()=>{
 const handleDelete=(id)=>{
 dispatch(removeItemFromCart(id))
 
-
+dispatch(getCartItems())
 }
 
 
 
-const Inc=(item)=>{
-
+const Inc=(newcount,id,item)=>{
+   
+        dispatch(updateCartItem(id,{count:newcount,price:item.price+item.fixed}))
+   
+      
+    
+   
+    dispatch(getCartItems())
 }
 
-const Dec=(item,newcount,id)=>{
-    console.log(id)
-  console.log(item,"all ok") 
-  console.log(newcount) 
-  dispatch(updateCartItem(item.id,{count:newcount}))
-  dispatch(getCartItems())
+const Dec=(newcount,id,item)=>{
+ if(item.count!==1){
+    dispatch(updateCartItem(id,{count:newcount,price:item.price-item.fixed}))
+   
+ 
+  dispatch(getCartItems())}
 }
 
 
@@ -72,13 +79,19 @@ if(datas.length==0){
     return <CartEmpty/>
 }else{
 var k=0;
-    var z;
-if(datas[0].products){
- z=datas[0].products.length;
-datas[0].products.map((item)=>{
+   
+if(datas){
+
+datas.map((item)=>{
 k=k+item.price
 })
 }
+
+let z=datas.length
+
+
+
+  
 
 
     return(
@@ -86,7 +99,7 @@ k=k+item.price
 
 <Box>
 
-    
+
 <Wrap mt='120px' >
 
 <WrapItem >
@@ -105,7 +118,7 @@ k=k+item.price
 </WrapItem>
 </Wrap>
 
-<Text ml={{xl:"-1040px",lg:'-700px',md:"-460px",sm:"-200px",base:"-175px"}} fontWeight={'bold'}>My Cart ( {z} Items) </Text>
+<Text ml={{xl:"95px",lg:"95px",md:"95px",sm:"95px"}} fontWeight={'bold'}>My Cart ( {z} ) Items </Text>
 
 
 
@@ -114,25 +127,25 @@ k=k+item.price
 
 
 {
-datas[0].products?datas[0].products.map((item)=>{
+datas?datas.map((item)=>{
 
 
 
-    return<Center key={item.id} display={'block'} borderRadius='10px' border='1px solid gray' w={{xl:"440px",lg:"440px",md:"340px",sm:"300px",base:"250px"}} h={{xl:'460px',lg:'460px',md:"480px",base:"510px",sm:"480px"}} ml={{sm:"170px",xl:"0px",md:"0px",lg:"0px",base:"50px"}} mt='20px'>
+    return<Center key={item.id} display={'block'} borderRadius='10px' border='1px solid gray' w={{xl:"440px",lg:"440px",md:"340px",sm:"300px",base:"250px"}} h={{xl:'490px',lg:'490px',md:"500px",base:"560px",sm:"510px"}} ml={{sm:"170px",xl:"0px",md:"0px",lg:"0px",base:"50px"}} mt='20px'>
     <Image m=' 30px auto auto  auto' src={item.images
 [0]} w='200px' h='200px'/>
-     <Text color='gray.500' fontWeight={'bold'} mt='10px' fontSize={'14px'}>{item.title}</Text>
+     <Text textAlign={'center'} color='gray.500' fontWeight={'bold'} mt='10px' fontSize={'15px'}>{item.title}</Text>
      <Center mt='16px'>
-        <Button  onClick={()=>Dec(item,item.count-1,datas[0].id)}  mr='20px' color='black' bg='purple.300'  ><Text fontSize={'30px'}>-</Text></Button>
+        <Button  onClick={()=>Dec(item.count-1,item.id,item)}  mr='20px' color='black' bg='purple.300'  ><Text fontSize={'30px'}>-</Text></Button>
         <Text>{item.count}</Text>
-        <Button onClick={()=>Inc(item,item.count+1)} ml='20px' color='black'  bg='purple.300' ><Text fontSize={'25px'}>+</Text></Button>
+        <Button onClick={()=>Inc(item.count+1,item.id,item)} ml='20px' color='black'  bg='purple.300' ><Text fontSize={'25px'}>+</Text></Button>
         
      </Center>
-     <Text mt='19px' fontSize={'15px'} fontWeight={'bold'} color='gray.500'>Price: ₹ {item.price}</Text>
-     <Text mt='10px' fontSize={'15px'} fontWeight={'bold'} color='gray.500' >Estimated delivery time {day+item.timeToShip
+     <Text   mt='19px' ml={{xl:"180px",lg:"175px",md:"130px",sm:"110px",base:"85px"}} fontSize={'15px'} fontWeight={'bold'} color='gray.500'>Price: ₹ {item.price}</Text>
+     <Text textAlign={'center'} mt='10px' ml={{xl:"0px",lg:"0px",md:"0px",sm:"10px",base:"20px"}} fontSize={{base:"15px", md:"15px", sm:"15px",lg:"15px"}} fontWeight={'bold'} color='gray.500' >Estimated delivery time {day+item.timeToShip
 +" "}{monthNames[month]} 2023</Text>
     
-     <Button onClick={()=>handleDelete(item.id)} mt='15px' color='black'  bg='purple.300' ><Text fontSize={'15px'}>Remove</Text></Button>
+     <Button  ml={{xl:"170px",lg:"170px",md:"120px",sm:"105px",base:"80px"}} onClick={()=>handleDelete(item.id)} mt='15px' color='black'  bg='purple.300' ><Text fontSize={'15px'}>Remove</Text></Button>
         
     
     </Center>

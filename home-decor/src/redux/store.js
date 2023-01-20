@@ -13,8 +13,8 @@ import { cartReducer } from "./Cart/cart.reducer"
 
 
 let rootReducer = combineReducers({
-
-    userOrder : orderReducer
+  cart:cartReducer,
+    userOrder : orderReducer,
     product : productReducer,
 });
 

@@ -21,6 +21,7 @@ import card4 from '../assets/card4.jpg'
 import Footer from '../components/Footer'
 import Carousel from '../components/Carousel'
 import { Link } from 'react-router-dom'
+import CarouselCard from '../components/CarouselCard'
 
 
 
@@ -84,16 +85,18 @@ const Homepage = () => {
         spacing={3} 
         justifyContent={'center'} 
         alignItems="center" 
-        marginTop={4}>
+        marginTop={4}
+        >
             <Box border="1px solid lightgray"  h='0px' flex={1} />
-            <Text flex={1} fontSize={{base : 'md', sm:'lg', md:'2xl', lg:'3xl'}}>Shop By Category</Text>
+            <Text flex={1} textAlign="center" fontSize={{base : 'md', sm:'lg', md:'2xl', lg:'3xl'}}>Shop By Category</Text>
             <Box border="1px solid lightgray" h='0px' flex={1}/>
         </Flex>
-        <SimpleGrid columns={5} spacing={'5px'} padding={4}>
+        <SimpleGrid columns={5} spacing={'5px'} padding={4} display={{base:'none',sm:'none',md:'grid'}}>
             {
                 ShopByCategory.map((el)=><BackgroundImage key={el.name} text={el.name} image={el.img} />)
             }
         </SimpleGrid>
+        <CarouselCard data={ShopByCategory} />
         {/* section2 */}
             <Carousel />
 

@@ -71,7 +71,7 @@ const Footer = () => {
                 py={4}
                 >
                     <ListHeader>PAYMENTS</ListHeader>
-                    <Stack direction={'row'} spacing={1}>
+                    <Stack direction={'row'} flexWrap="wrap" gap={2}>
                         <Image src={image1} alt="visa" height="30px" borderRadius="lg" />
                         <Image src={image2} alt="visa" height="30px" borderRadius="lg" />
                         <Image src={image3} alt="visa" height="30px" borderRadius="lg" />

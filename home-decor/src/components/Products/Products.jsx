@@ -23,20 +23,95 @@ import NoProductFound from "./NoProductFound";
 
 const Products = () => {
   /**********    useState   ******************/
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(15);
-  const [sort, setSort] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
 
   /**********    url search params   ******************/
-  const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q") || "";
-  const category = searchParams.get("category") || "";
+
+  const [currentPage, setCurrentPage] = useState(
+    searchParams.get("_page") || 1
+  );
+  const [productsPerPage, setProductsPerPage] = useState(15);
+
+  const [sort, setSort] = useState(
+    `${searchParams.get("_sort") || ""}&_order=${
+      searchParams.get("_order") || ""
+    }`
+  );
+
+  const [price_lte, setPrice_lte] = useState(
+    searchParams.get("price_lte") || ""
+  );
+
+  const [price_gte, setPrice_gte] = useState(
+    searchParams.get("price_gte") || ""
+  );
+
+  const [discount_lte, setDiscount_lte] = useState(
+    searchParams.get("discount_lte") || ""
+  );
+
+  const [discount_gte, setDiscount_gte] = useState(
+    searchParams.get("discount_gte") || ""
+  );
+
+  const [category, setcategory] = useState(searchParams.get("category") || "");
+
+  const [timeToShip, setTimeToShip] = useState(
+    searchParams.get("timeToShip") || ""
+  );
+
+  const [returnable, setReturnable] = useState(
+    searchParams.get("returnable") || ""
+  );
+
+  const [cancellable, setCancellable] = useState(
+    searchParams.get("cancellable") || ""
+  );
+
+  /**********    needed values to check for radio buttons for byDefault condition   ******************/
+  let filterDefaultValues = {
+    price: `${price_gte}*${price_lte}_price`,
+    discount: `${discount_gte}*${discount_lte}_discount`,
+    category: `${category}_category`,
+    timeToShip: `${timeToShip}_timeToShip`,
+    returnable: `${returnable}_returnable`,
+    cancellable: `${cancellable}_cancellable`,
+  };
 
   /**********    calling API on loads || reloads   ******************/
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getGridProducts(currentPage, productsPerPage, sort, q, category));
-  }, [currentPage, sort, q, category]);
+    dispatch(
+      getGridProducts(
+        currentPage,
+        productsPerPage,
+        q,
+        price_lte,
+        price_gte,
+        discount_lte,
+        discount_gte,
+        category,
+        timeToShip,
+        returnable,
+        cancellable,
+        sort
+      )
+    );
+  }, [
+    currentPage,
+    productsPerPage,
+    q,
+    price_lte,
+    price_gte,
+    discount_lte,
+    discount_gte,
+    category,
+    timeToShip,
+    returnable,
+    cancellable,
+    sort,
+  ]);
 
   /**********    redux store   ******************/
   const { loading, error, gridProducts, totalCount } = useSelector(
@@ -57,7 +132,40 @@ const Products = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
-  const handleSortFilterClose = () => {
+  const handleSortClose = () => {
+    onClose();
+  };
+
+  const handleFilterClose = (value) => {
+    if (value.includes("*")) {
+      if (value.includes("_price")) {
+        let res = new Array(2);
+        let temp = value.split("*");
+        res[0] = +temp[0];
+        res[1] = +temp[1].split("_price")[0];
+        setPrice_gte(res[0]);
+        setPrice_lte(res[1]);
+      } else if (value.includes("_discount")) {
+        let res = new Array(2);
+        let temp = value.split("*");
+        res[0] = +temp[0];
+        res[1] = +temp[1].split("_discount")[0];
+        setDiscount_gte(res[0]);
+        setDiscount_lte(res[1]);
+      }
+    } else if (value.includes("_category")) {
+      let temp = value.split("_category");
+      setcategory(temp[0]);
+    } else if (value.includes("_timeToShip")) {
+      let temp = value.split("_timeToShip");
+      setTimeToShip(temp[0]);
+    } else if (value.includes("_returnable")) {
+      let temp = value.split("_returnable");
+      setReturnable(temp[0]);
+    } else if (value.includes("_cancellable")) {
+      let temp = value.split("_cancellable");
+      setCancellable(temp[0]);
+    }
     onClose();
   };
 
@@ -87,7 +195,10 @@ const Products = () => {
     <div className={Styles.main}>
       {/***********  Filter here *************/}
       <div className={Styles.filter}>
-        <Filter handleSortFilterClose={handleSortFilterClose} />
+        <Filter
+          handleFilterClose={handleFilterClose}
+          filterDefaultValues={filterDefaultValues}
+        />
       </div>
 
       <div className={Styles.grid}>
@@ -97,7 +208,7 @@ const Products = () => {
             <Sort
               sort={sort}
               handleSort={handleSort}
-              handleSortFilterClose={handleSortFilterClose}
+              handleSortClose={handleSortClose}
             />
           </div>
           <div className={Styles.grid1Showing}>
@@ -120,7 +231,9 @@ const Products = () => {
             <Error />
           ) : (
             gridProducts &&
-            gridProducts.map((prod) => <ProductsCard key={prod.id} data={prod} />)
+            gridProducts.map((prod) => (
+              <ProductsCard key={prod.id} data={prod} />
+            ))
           )}
         </div>
 
@@ -151,12 +264,15 @@ const Products = () => {
             <DrawerHeader>Apply sort and filter</DrawerHeader>
 
             <DrawerBody display={"flex"} flexDirection={"column"} gap={2}>
-              <Filter />
+              <Filter
+                handleFilterClose={handleFilterClose}
+                filterDefaultValues={filterDefaultValues}
+              />
               <div>
                 <Sort
                   sort={sort}
                   handleSort={handleSort}
-                  handleSortFilterClose={handleSortFilterClose}
+                  handleSortClose={handleSortClose}
                 />
               </div>
             </DrawerBody>

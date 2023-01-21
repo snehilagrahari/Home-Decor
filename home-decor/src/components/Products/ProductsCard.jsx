@@ -1,11 +1,28 @@
 import Styles from "./ProductsCard.module.css";
 
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../../redux/Cart/cart.actions";
 
-const ProductsCard = ({ images, title, price, discount }) => {
+
+const ProductsCard = ({data}) => {
+
+  console.log(data);
+  const { id, images, title, price, discount } = data;
+  const navigate=  useNavigate();
+  const dispatch = useDispatch();
+  const handleCardClick = ()=>{
+    navigate(`/products/${id}`)
+  }
+  
+  const handleAddtoCart = ()=>{
+    dispatch(addItemToCart(data))
+  }
+
   return (
     <div className={Styles.mainCard}>
-      <div className={Styles.image}>
+      <div className={Styles.image} onClick={handleCardClick}>
         <img src={images[0]} alt={title} />
       </div>
       <div className={Styles.title}>{title}</div>
@@ -18,7 +35,7 @@ const ProductsCard = ({ images, title, price, discount }) => {
         </div>
       )}
 
-      <div className={Styles.cart}>
+      <div className={Styles.cart} onClick={handleAddtoCart}>
         <AiOutlineShoppingCart size={25} />
         Add To Cart
       </div>

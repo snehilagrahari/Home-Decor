@@ -22,7 +22,7 @@ function Productdetails() {
   }, []);
 
 
-  const data = useSelector((state) => state.Productdetails.data);
+  const data = useSelector((state) => state.product.data);
  
 
   const handleSideClick = (i)=>{
@@ -35,7 +35,7 @@ function Productdetails() {
           display: "grid",
           gridTemplateColumns: "repeat(3,1fr)",
           gap: "2px",
-          marginTop:"70px"
+          marginTop:"10px"
         }}
       >
        

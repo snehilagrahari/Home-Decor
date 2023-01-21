@@ -120,7 +120,7 @@ const Products = () => {
             <Error />
           ) : (
             gridProducts &&
-            gridProducts.map((prod) => <ProductsCard key={prod.id} {...prod} />)
+            gridProducts.map((prod) => <ProductsCard key={prod.id} data={prod} />)
           )}
         </div>
 

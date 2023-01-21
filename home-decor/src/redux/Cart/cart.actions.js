@@ -60,6 +60,7 @@ export const addItemToCart=(info)=>(dispatch)=>{
 return  axios.post("https://mock-server-ge69.onrender.com/api/CartItem",{...info,count:1,fixed:info.price})
 .then(({data})=>{
     dispatch({type:ADD_ITEM_TO_CART_SUCCESS,payload:data})
+    dispatch(getCartItems());
 
 })
 
@@ -73,6 +74,7 @@ export const removeItemFromCart=(cartId)=>(dispatch)=>{
 return  axios.delete(`https://mock-server-ge69.onrender.com/api/CartItem/${cartId}`)
 .then((re)=>{
     dispatch({type:REMOVE_CART_ITEMS_SUCCESS,payload:{id:cartId}})
+    dispatch(getCartItems());
 })
 
 .catch(()=>dispatch({type:REMOVE_CART_ITEMS_ERROR}))
@@ -90,6 +92,7 @@ export const updateCartItem=(cartId,update)=>(dispatch)=>{
     })
     .then(({data})=>{
         dispatch({type:UPDATE_CART_ITEMS_SUCCESS,payload:data})
+        dispatch(getCartItems());
     })
     .catch(()=>dispatch({type:UPDATE_CART_ITEMS_ERROR}))
     }

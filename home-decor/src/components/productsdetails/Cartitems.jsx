@@ -1,10 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Tag } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
+import { addItemToCart } from "../../redux/Cart/cart.actions";
+import { useNavigate } from "react-router-dom";
 
 function Cartitems({ data }) {
+  const dispatch = useDispatch();
   const handleaddtocart = () => {
-    // cartitemapi(data.id);
+    dispatch(addItemToCart(data));
   };
+
+  const [exist, setExist] = useState(false);
+
+  const cart = useSelector((store) => store.cart.datas);
+
+  const CheckExistence = (cart,data) => {
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id == data.id) {
+        console.log("FOund");
+        return true;
+      }
+      console.log("Not Found");
+      return false;
+    }
+  };
+
+  const navigate= useNavigate();
+  const handleCart= ()=>{
+    navigate('/cart');
+  }
+  useEffect(()=>{
+    setExist(CheckExistence(cart,data));
+  },[cart])
 
   return (
     <>
@@ -110,14 +137,20 @@ function Cartitems({ data }) {
           }}
         >
           {/* button  */}
-          <Button
-            bg="#902735"
-            colorScheme={"red"}
-            size="md"
-            onClick={handleaddtocart}
-          >
-            Add to Cart
-          </Button>
+          {exist ? (
+            <Button bg="#902735" colorScheme={"red"} size="md" onClick={handleCart}>
+              Go to Cart
+            </Button>
+          ) : (
+            <Button
+              bg="#902735"
+              colorScheme={"red"}
+              size="md"
+              onClick={handleaddtocart}
+            >
+              Add to Cart
+            </Button>
+          )}
           {/* <Button bg="#902735" colorScheme={"red"} size="md">
             Buy
           </Button> */}

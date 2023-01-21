@@ -7,11 +7,11 @@ function Sideimage({ images, onClick, current }) {
 
   return (
     <>
-      <div
+      <Box
+          display= "flex"
+          width= {{base:"30%" ,sm:"25%" , }}
+          flexDirection= {{base:"row" ,sm:"row" ,md:"column" ,lg:"column"}}
         style={{
-          display: "flex-inline",
-          flexDirection: "column",
-          width: "25%",
           margin: "10px",
         }}
       >
@@ -35,7 +35,7 @@ function Sideimage({ images, onClick, current }) {
             />
           </Box>
         ))}
-      </div>
+      </Box>
     </>
   );
 }

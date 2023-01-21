@@ -7,12 +7,15 @@ import {
   AccordionIcon,
   Heading,
   Box,
-  CheckboxGroup,
+  RadioGroup,
   Text,
   Stack,
-  Checkbox,
+  Radio,
 } from "@chakra-ui/react";
-const Filter = ({ handleSortFilterClose }) => {
+const Filter = ({ handleFilterClose, filterDefaultValues }) => {
+  /****************   destrcturing the keys to show radio default values if any    *****************/
+  const { price, discount, category, timeToShip, returnable, cancellable } =
+    filterDefaultValues;
   return (
     <div>
       <Heading fontSize={20} textAlign={"left"}>
@@ -33,18 +36,23 @@ const Filter = ({ handleSortFilterClose }) => {
               </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>
-              <CheckboxGroup colorScheme="red">
+              <RadioGroup
+                colorScheme="red"
+                onChange={handleFilterClose}
+                defaultValue={price}
+              >
                 <Stack spacing={1}>
-                  <Checkbox
-                    onClick={() => handleSortFilterClose()}
-                    value="50to100"
-                  >
-                    50 - 100 (11)
-                  </Checkbox>
-                  <Checkbox value="100to500">100 - 500 (11)</Checkbox>
-                  <Checkbox value="above500">above 500 (11)</Checkbox>
+                  <Radio value="100*500_price" name="price">
+                    100 - 500 (11)
+                  </Radio>
+                  <Radio value="500*1000_price" name="price">
+                    500 - 1000 (11)
+                  </Radio>
+                  <Radio value="1000*10000000000_price" name="price">
+                    Above 1000 (11)
+                  </Radio>
                 </Stack>
-              </CheckboxGroup>
+              </RadioGroup>
             </AccordionPanel>
           </AccordionItem>
 
@@ -60,15 +68,29 @@ const Filter = ({ handleSortFilterClose }) => {
               </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>
-              <CheckboxGroup colorScheme="red">
+              <RadioGroup
+                colorScheme="red"
+                onChange={handleFilterClose}
+                defaultValue={discount}
+              >
                 <Stack spacing={1}>
-                  <Checkbox value="0to5">0% - 5% (11)</Checkbox>
-                  <Checkbox value="5to10">5% - 10% (11)</Checkbox>
-                  <Checkbox value="10to30">10% - 30% (11)</Checkbox>
-                  <Checkbox value="30to60">30% - 60% (11)</Checkbox>
-                  <Checkbox value="above60">above 60% (11)</Checkbox>
+                  <Radio value="0*5_discount" name="discount">
+                    0% - 5% (11)
+                  </Radio>
+                  <Radio value="5*10_discount" name="discount">
+                    5% - 10% (11)
+                  </Radio>
+                  <Radio value="10*30_discount" name="discount">
+                    10% - 30% (11)
+                  </Radio>
+                  <Radio value="30*60_discount" name="discount">
+                    30% - 60% (11)
+                  </Radio>
+                  <Radio value="60_discount" name="discount">
+                    Above 60% (11)
+                  </Radio>
                 </Stack>
-              </CheckboxGroup>
+              </RadioGroup>
             </AccordionPanel>
           </AccordionItem>
 
@@ -84,16 +106,29 @@ const Filter = ({ handleSortFilterClose }) => {
               </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>
-              <CheckboxGroup colorScheme="red">
+              <RadioGroup
+                colorScheme="red"
+                onChange={handleFilterClose}
+                defaultValue={category}
+              >
                 <Stack spacing={1}>
-                  <Checkbox value="accessories">Accessories (11)</Checkbox>
-                  <Checkbox value="f&b">F&B (11)</Checkbox>
-                  <Checkbox value="fashion">Fashion (11)</Checkbox>
-                  <Checkbox value="dryfruits">Dry Fruits (11)</Checkbox>
-                  <Checkbox value="homedecor">Home Decor (11)</Checkbox>
-                  <Checkbox value="idols">Idols (11)</Checkbox>
+                  <Radio value="F&B_category" name="category">
+                    F&B (11)
+                  </Radio>
+                  <Radio value="fashion_category" name="category">
+                    Fashion (11)
+                  </Radio>
+                  <Radio value="Grocery_category" name="category">
+                    Grocery (11)
+                  </Radio>
+                  <Radio value="Dry fruits_category" name="category">
+                    Dry Fruits (11)
+                  </Radio>
+                  <Radio value="Packaged Foods_category" name="category">
+                    Packaged Foods (11)
+                  </Radio>
                 </Stack>
-              </CheckboxGroup>
+              </RadioGroup>
             </AccordionPanel>
           </AccordionItem>
 
@@ -109,15 +144,29 @@ const Filter = ({ handleSortFilterClose }) => {
               </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>
-              <CheckboxGroup colorScheme="red">
+              <RadioGroup
+                colorScheme="red"
+                onChange={handleFilterClose}
+                defaultValue={timeToShip}
+              >
                 <Stack spacing={1}>
-                  <Checkbox value="sameday">Same Day (11)</Checkbox>
-                  <Checkbox value="1day">1 Day (11)</Checkbox>
-                  <Checkbox value="2day">2 Day (11)</Checkbox>
-                  <Checkbox value="3 Day">3 Day (11)</Checkbox>
-                  <Checkbox value="5day">5 Day (11)</Checkbox>
+                  <Radio value="0_timeToShip" name="timeToShip">
+                    Same Day (11)
+                  </Radio>
+                  <Radio value="1_timeToShip" name="timeToShip">
+                    1 Day (11)
+                  </Radio>
+                  <Radio value="2_timeToShip" name="timeToShip">
+                    2 Day (11)
+                  </Radio>
+                  <Radio value="3_timeToShip" name="timeToShip">
+                    3 Day (11)
+                  </Radio>
+                  <Radio value="5_timeToShip" name="timeToShip">
+                    5 Day (11)
+                  </Radio>
                 </Stack>
-              </CheckboxGroup>
+              </RadioGroup>
             </AccordionPanel>
           </AccordionItem>
 
@@ -133,12 +182,20 @@ const Filter = ({ handleSortFilterClose }) => {
               </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>
-              <CheckboxGroup colorScheme="red">
+              <RadioGroup
+                colorScheme="red"
+                onChange={handleFilterClose}
+                defaultValue={returnable}
+              >
                 <Stack spacing={1}>
-                  <Checkbox value="yes">Yes (11)</Checkbox>
-                  <Checkbox value="no">No (11)</Checkbox>
+                  <Radio value="true_returnable" name="returnable">
+                    Yes (11)
+                  </Radio>
+                  <Radio value="false_returnable" name="returnable">
+                    No (11)
+                  </Radio>
                 </Stack>
-              </CheckboxGroup>
+              </RadioGroup>
             </AccordionPanel>
           </AccordionItem>
 
@@ -154,12 +211,20 @@ const Filter = ({ handleSortFilterClose }) => {
               </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>
-              <CheckboxGroup colorScheme="red">
+              <RadioGroup
+                colorScheme="red"
+                onChange={handleFilterClose}
+                defaultValue={cancellable}
+              >
                 <Stack spacing={1}>
-                  <Checkbox value="yes">Yes (11)</Checkbox>
-                  <Checkbox value="no">No (11)</Checkbox>
+                  <Radio value="true_cancellable" name="cancellable">
+                    Yes (11)
+                  </Radio>
+                  <Radio value="false_cancellable" name="cancellable">
+                    No (11)
+                  </Radio>
                 </Stack>
-              </CheckboxGroup>
+              </RadioGroup>
             </AccordionPanel>
           </AccordionItem>
           {/* ends here */}

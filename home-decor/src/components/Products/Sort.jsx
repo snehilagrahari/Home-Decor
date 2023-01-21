@@ -1,6 +1,6 @@
 import React from "react";
 import Styles from "./Sort.module.css";
-const Sort = ({ sort, handleSort, handleSortFilterClose }) => {
+const Sort = ({ sort, handleSort, handleSortClose }) => {
   return (
     <div className={Styles.sort}>
       <p>Sort By:</p>
@@ -11,7 +11,7 @@ const Sort = ({ sort, handleSort, handleSortFilterClose }) => {
             : "",
         }}
         onClick={() => {
-          handleSortFilterClose();
+          handleSortClose();
           handleSort("_sort=price&_order=asc");
         }}
       >
@@ -24,7 +24,7 @@ const Sort = ({ sort, handleSort, handleSortFilterClose }) => {
             : "",
         }}
         onClick={() => {
-          handleSortFilterClose();
+          handleSortClose();
           handleSort("_sort=price&_order=desc");
         }}
       >
@@ -37,7 +37,7 @@ const Sort = ({ sort, handleSort, handleSortFilterClose }) => {
             : "",
         }}
         onClick={() => {
-          handleSortFilterClose();
+          handleSortClose();
           handleSort("_sort=discount&_order=desc");
         }}
       >

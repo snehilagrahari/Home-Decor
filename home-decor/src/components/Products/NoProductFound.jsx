@@ -1,6 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const NoProductFound = () => {
+
+  const navigate=useNavigate();
+
+  const handleHomePage = () =>{
+    navigate('/');
+  }
   return (
     <div
       style={{
@@ -10,7 +17,7 @@ const NoProductFound = () => {
         alignItems: "center",
         gap: "10px",
         textAlign: "center",
-        height: "70vh",
+        height: "500px",
       }}
     >
       <div
@@ -43,6 +50,7 @@ const NoProductFound = () => {
           borderRadius: "5px",
           cursor: "pointer",
         }}
+        onClick={handleHomePage}
       >
         Continue shopping
       </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import { ImUser, ImCart } from "react-icons/im"
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,10 +19,13 @@ import {
 import {useNavigate} from 'react-router-dom'
 import { AUTH_LOGOUT } from '../../redux/auth/auth.type'
 import { Logout } from '../../redux/auth/auth.actions'
+import { getCartItems } from '../../redux/Cart/cart.actions'
 
 
 export const Navbar1 = () => {
   const isAuth = useSelector(store=>store.auth.isAuth);
+
+  const cart = useSelector(store=>store.cart.datas);
 
   const [searchText, setSearchText] = useState('');
 
@@ -41,6 +44,10 @@ export const Navbar1 = () => {
   const handleClick=()=>{
     dispatch(Logout());
   }
+
+  useEffect(()=>{
+    dispatch(getCartItems());
+  })
   return (
     <Flex maxW={'100%'} p="5px 20px" zIndex={1} position="sticky" top="0" bgColor="#902735" justifyContent="space-between" color="white" marginBottom={3}>
       <Box width="60px" onClick={()=>navigate('/')} cursor="pointer">
@@ -72,7 +79,7 @@ export const Navbar1 = () => {
         <Flex alignItems="center" gap={1} cursor="pointer" onClick={()=>{navigate('/cart')}}>
           <ImCart size={'25px'} />
           <Text display={{base:'none',sm:'none',md:'block'}}>Cart</Text>
-          <Circle color="white" bgColor="green.300" p="0px 5px" fontSize="10px">0</Circle>
+          <Circle color="white" bgColor="green.300" p="0px 5px" fontSize="10px">{cart.length}</Circle>
         </Flex>
       </Flex>
     </Flex>

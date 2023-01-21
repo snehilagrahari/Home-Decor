@@ -23,21 +23,6 @@ import Carousel from '../components/Carousel'
 import { Link } from 'react-router-dom'
 import CarouselCard from '../components/CarouselCard'
 
-
-import homedecor from "../assets/homedecor.jpg";
-import totebags from "../assets/totebags.jpg";
-import kitchenware from "../assets/kitchenware.jpg";
-import ceramic from "../assets/ceramic.jpg";
-import idols from "../assets/idols.jpg";
-
-import card1 from "../assets/card1.jpg";
-import card2 from "../assets/card2.jpg";
-import card3 from "../assets/card3.jpg";
-import card4 from "../assets/card4.jpg";
-import Footer from "../components/Footer";
-import Carousel from "../components/Carousel";
-import { Link } from "react-router-dom";
-
 const ShopByCategory = [
   {
     name: "Home Decor",
@@ -93,12 +78,6 @@ const Homepage = () => {
     return (
 
     <div>
-
-    
-        {/* section1 */}
-        <Flex 
-        direction={'row'} 
-        width={'80%'}
 
       {/* section1 */}
       <Flex

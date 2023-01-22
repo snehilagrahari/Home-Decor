@@ -60,6 +60,10 @@ export const Navbar1 = () => {
     dispatch(Logout());
   };
 
+  const redirectCart = ()=>{
+    navigate('/cart');
+  }
+
   useEffect(() => {
     dispatch(getCartItems());
 
@@ -116,7 +120,7 @@ export const Navbar1 = () => {
             <MenuList color={'black'}>
               <MenuItem>My Account</MenuItem>
               <MenuItem onClick={handleOrderClick}>My Orders</MenuItem>
-              <MenuItem>My Cart</MenuItem>
+              <MenuItem onClick={redirectCart}>My Cart</MenuItem>
               <MenuItem onClick={handleClick}>SignOut</MenuItem>
             </MenuList>
           </Menu>:<Login1 /> }

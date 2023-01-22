@@ -10,7 +10,6 @@ const OrderPage = () => {
   const dispatch = useDispatch();
   const orders = useSelector((store)=>store.userOrder.orders);
   const {isAuth, data} = useSelector(store=>store.auth);
-  console.log(orders);
     
 
     useEffect(()=>{

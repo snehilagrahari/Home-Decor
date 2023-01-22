@@ -20,7 +20,6 @@ export const Login = (id)=> async(dispatch) =>{
     try{
         let res = await getUserAPI(id);
         let data = res.data;
-        console.log(res.data);
         dispatch({type:AUTH_LOGIN,payload : data});
         localStorage.setItem("craftsVillaUser",id);
     }

@@ -46,7 +46,7 @@ const Checkout = () => {
       orderDate: Date.now(),
       orderAddress: "42/A, Jagdishpur, VasantKunj, Delhi, 116498",
     };
-    dispatch(placeOrder(data));
+    dispatch(placeOrder(data,userData.id));
     navigate("/orders");
   };
 

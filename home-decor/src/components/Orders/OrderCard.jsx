@@ -1,11 +1,16 @@
 import { Button, Flex, Heading, Image, Text, VStack } from '@chakra-ui/react'
 import React, { useCallback, useState } from 'react'
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { removeOrder } from '../../redux/order/order.action';
 
 const OrderCard = (props) => {
     let {orderDetails} = props;
 
     const [cancel, setCancel] = useState(false);
+    const dispatch=useDispatch();
+    const [ loading, setLoading] = useState(false);
 
     const checkCancelEligibility = useCallback(
       () => {
@@ -21,6 +26,12 @@ const OrderCard = (props) => {
         setCancel(checkCancelEligibility());
     },[checkCancelEligibility])
     
+
+    const clickCancelOrder = ()=>{
+        setLoading(true);
+        dispatch(removeOrder(orderDetails.id));
+    }
+
   return (
     <div>
         <VStack alignItems='start' p={4} border="1px solid #902735" borderRadius={'lg'} margin="20px auto" >
@@ -52,7 +63,7 @@ const OrderCard = (props) => {
                 cancel===true?
                 (<Flex gap={10} w="full" justifyContent={'space-between'} alignItems={'flex-end'}>
                     <Text fontSize="md" color="green">Order is eligible for cancellation.</Text>
-                    <Button borderRadius="lg" color="white" bgColor="#902735" fontSize="md">Cancel Order</Button>
+                    <Button borderRadius="lg" color="white" bgColor="#902735" onClick={clickCancelOrder} fontSize="md" isLoading={loading}>Cancel Order</Button>
                 </Flex>)
                 :<Text fontSize="md" color="red">**Items in your cart are not cancellable**</Text>
             }

@@ -202,8 +202,8 @@ const Cartfull = () => {
                       <Image
                         m=" 30px auto auto  auto"
                         src={item.images[0]}
-                        maxW="auto"
-                        maxH="250px"
+                        maxW="100%"
+                        height="250px"
                         cursor="pointer"
                         onClick={() => handleProductRedirect(item.id)}
                       />
@@ -245,13 +245,7 @@ const Cartfull = () => {
                     </Center>
                     <Text
                       mt="19px"
-                      ml={{
-                        xl: "180px",
-                        lg: "175px",
-                        md: "130px",
-                        sm: "110px",
-                        base: "85px",
-                      }}
+                      textAlign="center"
                       fontSize={"15px"}
                       fontWeight={"bold"}
                       color="gray.500"
@@ -261,13 +255,6 @@ const Cartfull = () => {
                     <Text
                       textAlign={"center"}
                       mt="10px"
-                      ml={{
-                        xl: "0px",
-                        lg: "0px",
-                        md: "0px",
-                        sm: "10px",
-                        base: "20px",
-                      }}
                       fontSize={{
                         base: "15px",
                         md: "15px",
@@ -282,18 +269,14 @@ const Cartfull = () => {
                     </Text>
 
                     <Button
-                      ml={{
-                        xl: "170px",
-                        lg: "170px",
-                        md: "120px",
-                        sm: "105px",
-                        base: "80px",
-                      }}
+
                       onClick={() => handleDelete(item.id)}
                       mt="15px"
                       color="black"
                       bg="#902735"
                       mb="15px"
+                      display="block"
+                      margin="10px auto"
                       _hover={{ bg: "black" }}
                     >
                       <Text fontSize={"15px"} color="white">

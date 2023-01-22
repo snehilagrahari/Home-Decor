@@ -8,7 +8,7 @@
 .child_md {
     width: 75vw;
     height: auto;
-    border: 2px solid #E5E5E5;
+    /* border: 2px solid #E5E5E5; */
     display: flex;
     line-height: 40px;
     gap: 5px;
@@ -108,7 +108,7 @@
 }
 
 .debit_content>div {
-    border: 1px solid blue
+    padding: 5px;
 }
 
 .debit_content>div>p {
@@ -173,7 +173,10 @@
     height: 35px;
     border-radius: 5px;
     margin: auto;
-    text-align: center;
+    /* text-align: center; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-top: 20px;
     margin-bottom: 20px;
     align-items: center;

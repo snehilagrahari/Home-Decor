@@ -126,7 +126,7 @@ const Checkout = () => {
                       </div>
 
                     </div>
-                    <div className={style.button}>Pay Secaurely ₹ {k}</div>
+                    <div className={style.button}>Pay Securely ₹ {k}</div>
                   </div>
                   :
                   null
@@ -148,7 +148,7 @@ const Checkout = () => {
                       <p>UPI Number</p>
                       <input type="number" />
                     </div>
-                    <div className={style.button}>Pay Secaurely ₹ {k}</div>
+                    <div className={style.button}>Pay Securely ₹ {k}</div>
                   </div>
                   :
                   null}
@@ -166,7 +166,7 @@ const Checkout = () => {
             </h3>
             <span>{show3 ? <AiOutlineMinus /> : <AiOutlinePlus />}</span>
           </div>
-          {show3 ? <div className={style.button}>Pay Secaurely ₹ {k}</div> : null}
+          {show3 ? <div className={style.button}>Pay Securely ₹ {k}</div> : null}
         </div>
         <div>
           <div className={style.order}>

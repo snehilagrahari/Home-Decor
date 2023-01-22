@@ -34,7 +34,7 @@ const Cartfull = () => {
   const dispatch = useDispatch();
 const toast=useToast()
 const [loadr,setLoadr]=useState(false)
-  const { loading, error, datas } = useSelector((state) => state.cart);
+  const { datas } = useSelector((state) => state.cart);
   const date = new Date();
   const monthNames = [
     "January",
@@ -172,9 +172,10 @@ if(loadr){
 
         <SimpleGrid
           columns={{ xl: 3, lg: 2, md: 2, sm: 1, base: 1 }}
-          spacing="-40px"
-          ml="10px"
-          mt="50px"
+          w="90%"
+          margin="auto"
+          gap={{base:3, sm:5, md:10}}
+          justifyContent="center"
         >
           {datas
             ? datas.map((item) => {
@@ -184,13 +185,7 @@ if(loadr){
                     display={"block"}
                     borderRadius="10px"
                     border="1px solid #902735"
-                    w={{
-                      xl: "440px",
-                      lg: "440px",
-                      md: "340px",
-                      sm: "300px",
-                      base: "250px",
-                    }}
+                    
                     h={{
                       xl: "auto",
                       lg: "auto",
@@ -198,14 +193,6 @@ if(loadr){
                       base:"auto",
                       sm: "auto",
                     }}
-                    ml={{
-                      sm: "170px",
-                      xl: "0px",
-                      md: "0px",
-                      lg: "0px",
-                      base: "50px",
-                    }}
-                    mt="20px"
                   >
                     <Box w='100%'>
                     <Image

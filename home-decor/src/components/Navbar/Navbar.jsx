@@ -20,15 +20,9 @@ import {
 } from '@chakra-ui/react'
 
 import {useNavigate} from 'react-router-dom'
-import { AUTH_LOGOUT } from '../../redux/auth/auth.type'
 import { Logout } from '../../redux/auth/auth.actions'
 import { getCartItems } from '../../redux/Cart/cart.actions'
 import Login1 from '../Login/Login1'
-
-import { useNavigate } from "react-router-dom";
-import { AUTH_LOGOUT } from "../../redux/auth/auth.type";
-import { Logout } from "../../redux/auth/auth.actions";
-import { getCartItems } from "../../redux/Cart/cart.actions";
 
 export const Navbar1 = () => {
 
@@ -109,10 +103,13 @@ export const Navbar1 = () => {
       <Flex alignItems="center" gap={2}>
         <Flex alignItems="center" gap={1}>
 
-          <ImUser size={'25px'} color="white" />
+          
           {isAuth?<Menu>
             <MenuButton>
-              <Text as="span" display={{base:'none',sm:'none',md:'block'}}>Account</Text>
+              <Flex>
+                <ImUser size={'25px'} color="white" />
+                <Text as="span" display={{base:'none',sm:'none',md:'block'}}>Account</Text>
+              </Flex>
             </MenuButton>
             <MenuList color={'black'}>
               <MenuItem>My Account</MenuItem>

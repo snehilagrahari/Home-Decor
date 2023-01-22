@@ -7,15 +7,36 @@ import {
 import { getGridProductsAPI } from "./products.api";
 
 export const getGridProducts =
-  (currentPage, productsPerPage, sort, q, category) => async (dispatch) => {
+  (
+    currentPage,
+    productsPerPage,
+    q,
+    price_lte,
+    price_gte,
+    discount_lte,
+    discount_gte,
+    category,
+    timeToShip,
+    returnable,
+    cancellable,
+    sort
+  ) =>
+  async (dispatch) => {
     dispatch({ type: PRODUCTS_GET_LOADING });
     try {
       let data = await getGridProductsAPI(
         currentPage,
         productsPerPage,
-        sort,
         q,
-        category
+        price_lte,
+        price_gte,
+        discount_lte,
+        discount_gte,
+        category,
+        timeToShip,
+        returnable,
+        cancellable,
+        sort
       );
       dispatch({ type: PRODUCTS_GET_SUCCESS, payload: data });
     } catch (err) {

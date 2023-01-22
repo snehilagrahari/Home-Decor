@@ -1,7 +1,9 @@
+
 import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { ImUser, ImCart } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
+
 
 import {
   Menu,
@@ -22,20 +24,32 @@ import { Logout } from "../../redux/auth/auth.actions";
 import { getCartItems } from "../../redux/Cart/cart.actions";
 
 export const Navbar1 = () => {
+
   const isAuth = useSelector((store) => store.auth.isAuth);
 
   const cart = useSelector((store) => store.cart.datas);
 
+
   const [searchText, setSearchText] = useState("");
 
-  const handleSearchClick = () => {
-    if (searchText.trim() != "") {
-      navigate(`/search?q=${searchText}`);
+
+  const handleSearchClick = ()=>{
+   
+    
+    if(searchText.trim()!="")
+    {
+     
+        navigate(`/search?q=${searchText}`);
+           
+    
     }
-  };
-  const handleOrderClick = () => {
-    navigate("/orders");
-  };
+
+    
+  }
+  const handleOrderClick=()=>{
+    navigate('/orders');
+  }
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

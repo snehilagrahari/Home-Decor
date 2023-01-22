@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import { ImUser, ImCart } from "react-icons/im"
 import { useDispatch, useSelector } from 'react-redux'
-
+import Loading from '../Cart/Loding'
 import {
   Menu,
   MenuButton,
@@ -24,16 +24,23 @@ import { getCartItems } from '../../redux/Cart/cart.actions'
 
 export const Navbar1 = () => {
   const isAuth = useSelector(store=>store.auth.isAuth);
-
+const [loader,setLoader]=useState(false)
   const cart = useSelector(store=>store.cart.datas);
 
   const [searchText, setSearchText] = useState('');
 
   const handleSearchClick = ()=>{
+   
+    
     if(searchText.trim()!="")
     {
-      navigate(`/search?q=${searchText}`);
+     
+        navigate(`/search?q=${searchText}`);
+           
+    
     }
+
+    
   }
   const handleOrderClick=()=>{
     navigate('/orders');
@@ -47,7 +54,8 @@ export const Navbar1 = () => {
 
   useEffect(()=>{
     dispatch(getCartItems());
-  })
+  },[])
+
   return (
     <Flex maxW={'100%'} p="5px 20px" zIndex={1} position="sticky" top="0" bgColor="#902735" justifyContent="space-between" color="white" marginBottom={3}>
       <Box width="60px" onClick={()=>navigate('/')} cursor="pointer">

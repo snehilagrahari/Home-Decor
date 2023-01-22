@@ -25,7 +25,7 @@ Home Decor provides its users with following features: <br />
 
 
 <h2> Login/Signup </h2>
-![Login](https://user-images.githubusercontent.com/112630634/213930076-c6c6084f-6226-4ebc-99b0-bd5300b557dc.png)
+<img src="https://user-images.githubusercontent.com/112630634/213930076-c6c6084f-6226-4ebc-99b0-bd5300b557dc.png" alt="image" />
 Once you enter your mobile number you will see the page to enter OTP. The OTP is hardcoded value <b>1234</b>. There are no auth integrations yet which will come in later versions.
 
 <h2>Products Page & Search Functionality</h2>
@@ -46,11 +46,11 @@ In cart you will see all the items you have added to cart so far and on top you 
 <h2>Checkout</h2>
 On clicking the place order button in cart you will be navigated to checkout page where you can place your order with different options of patyment. The shipping address is hardcoded for now and will be updated in later versions. Only cash on delivery option makes a 
 successful order.
-![Checkout](https://user-images.githubusercontent.com/112630634/213930501-ca3fec7a-9ad3-4267-872d-229503cbff13.png)
+<img src="https://user-images.githubusercontent.com/112630634/213930501-ca3fec7a-9ad3-4267-872d-229503cbff13.png" alt="Checkout" />
 
 <h2>Your Orders</h2>
 You can list all your earlier and current order in Orders Page. And if you all the items in a particular order are cancellable you can cancel the order as well.
-![OrdersPage](https://user-images.githubusercontent.com/112630634/213930555-3137a837-3ae2-4238-b874-21d5a7e164da.png)
+<img src="https://user-images.githubusercontent.com/112630634/213930555-3137a837-3ae2-4238-b874-21d5a7e164da.png" alt="Order" />
 
 That is it. 
 Thank you!

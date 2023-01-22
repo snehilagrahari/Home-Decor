@@ -1,21 +1,21 @@
-import { authGetApi, getUserAPI } from "./auth.api"
+import { addUserAPI, authGetApi, getUserAPI } from "./auth.api"
 import { AUTH_ERROR, AUTH_LOADING, AUTH_LOGIN, AUTH_LOGOUT } from "./auth.type";
 
 
 export const checkNumber = async (number)=>{
     let res = await authGetApi();
-    let data = res.data;
-    for(let i=0;i<data.length;i++)
+    for(let i=0;i<res.data.length;i++)
     {
-        if(data.mobileNumber == number)
+        if(res.data[i].userNumber == number)
         {
-            return data.id;
+            
+            return res.data[i].id;
         }
     }
     return false;
 }
 
-export const Login =(id)=>async(dispatch)=>{
+export const Login = (id)=> async(dispatch) =>{
     dispatch({type : AUTH_LOADING});
     try{
         let res = await getUserAPI(id);
@@ -32,4 +32,19 @@ export const Login =(id)=>async(dispatch)=>{
 export const Logout = ()=>(dispatch)=>{
     dispatch({type : AUTH_LOGOUT});
     localStorage.removeItem("craftsVillaUser");
+}
+
+export const Signup = (number)=>async (dispatch)=>{
+    let data = {
+        userNumber : number
+    }
+    try{
+        let res = await addUserAPI(data);
+        let id =await checkNumber(number);
+        dispatch(Login(id));
+
+    }
+    catch(err){
+        console.log(err);
+    }
 }

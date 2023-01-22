@@ -20,6 +20,7 @@ import {useNavigate} from 'react-router-dom'
 import { AUTH_LOGOUT } from '../../redux/auth/auth.type'
 import { Logout } from '../../redux/auth/auth.actions'
 import { getCartItems } from '../../redux/Cart/cart.actions'
+import Login1 from '../Login/Login1'
 
 
 export const Navbar1 = () => {
@@ -47,7 +48,7 @@ export const Navbar1 = () => {
 
   useEffect(()=>{
     dispatch(getCartItems());
-  })
+  },[])
   return (
     <Flex maxW={'100%'} p="5px 20px" zIndex={1} position="sticky" top="0" bgColor="#902735" justifyContent="space-between" color="white" marginBottom={3}>
       <Box width="60px" onClick={()=>navigate('/')} cursor="pointer">
@@ -73,7 +74,7 @@ export const Navbar1 = () => {
               <MenuItem>My Cart</MenuItem>
               <MenuItem onClick={handleClick}>SignOut</MenuItem>
             </MenuList>
-          </Menu>:<Text display={{base:'none',sm:'none',md:'block'}}>Sign in/Register</Text> }
+          </Menu>:<Login1 /> }
 
         </Flex>
         <Flex alignItems="center" gap={1} cursor="pointer" onClick={()=>{navigate('/cart')}}>

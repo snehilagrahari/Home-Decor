@@ -17,6 +17,7 @@ import {
   Image,
   Circle,
 
+
 } from '@chakra-ui/react'
 
 import {useNavigate} from 'react-router-dom'
@@ -52,6 +53,7 @@ export const Navbar1 = () => {
   }
 
 
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleClick = () => {
@@ -60,7 +62,9 @@ export const Navbar1 = () => {
 
   useEffect(() => {
     dispatch(getCartItems());
-  },[])
+
+  }, []);
+
   return (
     <Flex
       maxW={"100%"}
@@ -102,8 +106,6 @@ export const Navbar1 = () => {
       </Flex>
       <Flex alignItems="center" gap={2}>
         <Flex alignItems="center" gap={1}>
-
-          
           {isAuth?<Menu>
             <MenuButton>
               <Flex>
@@ -118,7 +120,6 @@ export const Navbar1 = () => {
               <MenuItem onClick={handleClick}>SignOut</MenuItem>
             </MenuList>
           </Menu>:<Login1 /> }
-
 
         </Flex>
         <Flex

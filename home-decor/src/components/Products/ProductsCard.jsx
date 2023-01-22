@@ -1,12 +1,20 @@
 import Styles from "./ProductsCard.module.css";
-
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../redux/Cart/cart.actions";
-import { useToast } from "@chakra-ui/react";
 
-const ProductsCard = ({ data }) => {
+import { useState } from "react";
+import { useEffect } from "react";
+
+const ProductsCard = ({ data, handleToast, cart }) => {
+  const [exist, setExist] = useState(false);
+
+  useEffect(() => {
+    CheckExistence(cart, id);
+  }, [cart]);
+
+
   const { id, images, title, price, discount } = data;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -16,15 +24,15 @@ const ProductsCard = ({ data }) => {
 const toast=useToast()
   const handleAddtoCart = () => {
     dispatch(addItemToCart(data));
-    setTimeout(()=>{
-      toast({
-        title:'Product Added to Cart Succesfully ',
-        status: 'success',
-        position:'top',
-        isClosable: true,
-      })
-    },1000)
-   
+    handleToast("success");
+  };
+
+  const CheckExistence = (cart, value) => {
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id == value) {
+        setExist(true);
+      }
+    }
 
   };
 
@@ -42,11 +50,20 @@ const toast=useToast()
           <div>{discount}%off</div>
         </div>
       )}
-
-      <div className={Styles.cart} onClick={handleAddtoCart}>
-        <AiOutlineShoppingCart size={25} />
-        Add To Cart
-      </div>
+      {exist ? (
+        <div
+          className={Styles.cartAdded}
+          onClick={() => handleToast("warning")}
+        >
+          <AiOutlineShoppingCart size={25} />
+          Added To Cart
+        </div>
+      ) : (
+        <div className={Styles.cart} onClick={handleAddtoCart}>
+          <AiOutlineShoppingCart size={25} />
+          Add To Cart
+        </div>
+      )}
     </div>
   );
 };

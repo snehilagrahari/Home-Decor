@@ -14,7 +14,7 @@ export const getGridProductsAPI = async (
   cancellable,
   sort
 ) => {
-  let URL = `https://mock-server-ge69.onrender.com/api/Products${
+  const URL = `https://mock-server-ge69.onrender.com/api/Products${
     q !== "" ? `?q=${q}` : "?q="
   }${category !== "" ? `&category=${category}` : ""}${
     sort !== "" ? `&_sort=${sort}` : ""
@@ -27,8 +27,6 @@ export const getGridProductsAPI = async (
   }${timeToShip !== "" ? `&timeToShip=${timeToShip}` : ""}${
     returnable !== "" ? `&returnable=${returnable}` : ""
   }${cancellable !== "" ? `&cancellable=${cancellable}` : ""}`;
-
-  console.log(URL);
 
   const responce = await axios.get(URL);
 

@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGridProducts } from "../../redux/products/products.action";
+import { getCartItems } from "../../redux/Cart/cart.actions";
 import { useSearchParams } from "react-router-dom";
 import ProductsCard from "./ProductsCard";
 import Pagination from "./Pagination";
@@ -20,11 +21,11 @@ import Error from "./Error";
 import Filter from "./Filter";
 import Sort from "./Sort";
 import NoProductFound from "./NoProductFound";
+import { useToast } from "@chakra-ui/react";
 
 const Products = () => {
   /**********    useState   ******************/
   const [searchParams, setSearchParams] = useSearchParams();
-
   /**********    url search params   ******************/
   const q = searchParams.get("q") || "";
 
@@ -82,6 +83,9 @@ const Products = () => {
   /**********    calling API on loads || reloads   ******************/
   const dispatch = useDispatch();
   useEffect(() => {
+    /**********    page will always loads at top position   ******************/
+    window.scrollTo(0, 0);
+
     dispatch(
       getGridProducts(
         currentPage,
@@ -96,7 +100,8 @@ const Products = () => {
         returnable,
         cancellable,
         sort
-      )
+      ),
+      getCartItems()
     );
   }, [
     currentPage,
@@ -111,6 +116,7 @@ const Products = () => {
     returnable,
     cancellable,
     sort,
+    dispatch,
   ]);
 
   /**********    redux store   ******************/
@@ -118,11 +124,13 @@ const Products = () => {
     (store) => store.products
   );
 
+  const cart = useSelector((store) => store.cart.datas);
+
   const totalPage = Math.ceil(totalCount / productsPerPage);
 
-  /**********    handling all functions   ******************/
+  /**********    handling all functions check below   ******************/
 
-  /**********    this function change pages   ******************/
+  /**********    this function change pages and URL   ******************/
   const paginate = (num) => {
     setCurrentPage(num);
 
@@ -146,7 +154,7 @@ const Products = () => {
     });
   };
 
-  /**********    this function impliment sorting   ******************/
+  /**********    this function impliment sorting and changes URL   ******************/
   const handleSort = (value, sort, order) => {
     setSort(value);
 
@@ -156,7 +164,11 @@ const Products = () => {
         newSearchParams.append("q", "");
       }
 
-      if (!newSearchParams.has("_page")) {
+      if (newSearchParams.has("_page")) {
+        setCurrentPage(1);
+        newSearchParams.set("_page", 1);
+      } else {
+        setCurrentPage(1);
         newSearchParams.append("_page", 1);
       }
 
@@ -426,6 +438,30 @@ const Products = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const toast = useToast();
+
+  const handleToast = (cond) => {
+    if (cond === "success") {
+      toast({
+        position: "top",
+        title: "Added to cart",
+        description: "Item successfully added to cart!",
+        status: "success",
+        duration: 1000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        position: "top",
+        title: "Already in cart",
+        description: "This product is already present in your cart.",
+        status: "warning",
+        duration: 1000,
+        isClosable: true,
+      });
+    }
+  };
+
   return gridProducts.length === 0 && loading === false ? (
     <NoProductFound />
   ) : (
@@ -469,7 +505,12 @@ const Products = () => {
           ) : (
             gridProducts &&
             gridProducts.map((prod) => (
-              <ProductsCard key={prod.id} data={prod} />
+              <ProductsCard
+                key={prod.id}
+                data={prod}
+                handleToast={handleToast}
+                cart={cart}
+              />
             ))
           )}
         </div>

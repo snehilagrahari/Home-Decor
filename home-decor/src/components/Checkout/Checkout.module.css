@@ -1,0 +1,310 @@
+.main_div {
+    display: grid;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-bottom: 5vh;
+}
+
+.child_md {
+    width: 75vw;
+    height: auto;
+    border: 2px solid #E5E5E5;
+    display: flex;
+    line-height: 40px;
+    gap: 5px;
+}
+
+.child_md>div {
+    /* border: 2px solid blue; */
+    width: 33%;
+
+}
+
+/* Step 1 */
+
+.step1 {
+    display: flex;
+    align-items: center;
+    letter-spacing: 1px;
+    font-size: 13px;
+    gap: 5px;
+    max-width: 50%;
+}
+
+.step1>:first-child {
+    color: #666666;
+    font-weight: 500;
+}
+
+.step1>:first-child+span {
+    color: #1A9E1A;
+}
+
+.heading {
+    font-weight: bold;
+}
+
+.ship {
+    line-height: 22px;
+    margin-bottom: 20px;
+}
+
+.ship>p {
+    font-size: 13px;
+    color: #666666;
+    font-weight: 500;
+}
+
+.ship>h3 {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.add {
+    color: #666666;
+    text-transform: capitalize;
+    line-height: 22px;
+}
+
+/* step 2 */
+
+.head_div {
+    /* border: 1px solid red; */
+    display: flex;
+}
+
+.head_div>span {
+    color: #666666;
+    margin-left: 15px;
+}
+
+.head_div+h4 {
+    font-weight: bold;
+    font-size: 14px;
+    width: 50%;
+    margin-left: 5%;
+}
+
+.debit_card {
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    color: black;
+    border-bottom:1px solid #E5E5E5 ;
+}
+
+.debit_card>h3 {
+    /* border: 1px solid blue; */
+    margin-left: -65%;
+    font-size: 14px;
+    font-weight: bold;
+    
+}
+
+.debit_content {
+    /* border: 1px solid red; */
+}
+
+.debit_content>div {
+    border: 1px solid blue
+}
+
+.debit_content>div>p {
+    font-size: 13px;
+    color: #666666;
+    /* border: 1px solid red; */
+    width: 27%;
+    padding: 0px 0px;
+    height: 30px;
+
+}
+
+.debit_content>div>input {
+    border: 2px solid #C5C5C5;
+    width: 95%;
+    height: 30px;
+    letter-spacing: 4px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.cardDate_details {
+    /* border: 1px solid red; */
+    display: flex;
+}
+
+.cardDate_details>div {
+    /* border: 1px solid blue; */
+    width: 30%;
+    padding: 0;
+    color: #666666;
+}
+
+.cardDate_details>div>p {
+    font-size: 11px;
+    /* border: 1px solid red; */
+    width: 55%;
+    height: 30px;
+    margin-bottom: -7px;
+}
+
+.cardDate_details>div>select {
+    width: 70%;
+    border: 1.5px solid #C5C5C5;
+    font-size: 11px;
+    margin-right: 10px;
+}
+
+.cardDate_details>div>input {
+    border: 1px solid #C5C5C5;
+    width: 50%;
+    height: 30%;
+    font-size: 11px;
+    letter-spacing: 3px;
+}
+
+.button {
+    border: 1px solid green;
+    color: white;
+    background-color: #902735;
+    width: 80%;
+    height: 35px;
+    border-radius: 5px;
+    margin: auto;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.cod {
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    color: black;
+}
+
+.cod>h3 {
+    /* border: 1px solid blue; */
+    margin-left: -55%;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* step 3 */
+.order {
+    /* border: 1px solid red; */
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    color: #666666;
+    background-color: #F7F7F7;
+}
+.order_content{
+    width: 100%;
+    /* border: 1px solid yellow; */
+    height: auto;
+    
+}
+.order_content>div{
+    height: 100px;
+    /* border: 1px solid red; */
+    font-size: 11px;
+    display: flex;
+    padding: 5px;
+    line-height: 20px;
+    align-items: center;
+}
+.order_content>div>img{
+    width: 12%;
+}
+.order_content>div>p{
+    color: #666666;
+}
+/* .priceList{
+    border: 1px solid cyan;
+    
+} */
+.priceList>div{
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    border-bottom: 1px solid #C5C5C5;
+    font-size: 12px;
+    color: #666666;
+}
+.totalPayable{
+    border-top: 2px solid black;
+     display: flex;
+    padding: 5px;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 18px;
+
+}
+/* mobile view */
+@media screen and (min-width:320px) and (max-width:425px) {
+    .child_md {
+        width: 95vw;
+        height: auto;
+        flex-direction: column-reverse;
+
+    }
+
+    .child_md>div {
+        width: 100%;
+    }
+
+    .debit_card>h3 {
+        margin-left: -57%;
+    }
+
+    .cardDate_details>div>p {
+        width: 90%;
+    }
+
+    .cod>h3 {
+        margin-left: -43%;
+    }
+}
+
+/* tablet view */
+@media screen and (min-width:425.5px) and (max-width:1024px) {
+    .child_md {
+        width: 95vw;
+
+    }
+
+    .debit_card>h3 {
+        margin-left: -47%;
+    }
+
+    .head_div+h4 {
+        width: 80%;
+    }
+
+    .cardDate_details>div>p {
+        width: 90%;
+    }
+
+    .cardDate_details>div>select {
+        /* width: 7%; */
+        font-size: 10px;
+    }
+
+    .cardDate_details>div>input {
+        width: 70%;
+    }
+
+    .cod>h3 {
+        margin-left: -27%;
+    }
+}

@@ -90,7 +90,6 @@ const Cartfull = () => {
         k = k + item.price;
       });
     }
-
     let z = datas.length;
 
     return (

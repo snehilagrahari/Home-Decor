@@ -7,21 +7,7 @@ import { useDispatch } from "react-redux";
 const CartEmpty=()=>{
 
     const dispatch=useDispatch()
-   
-    
-    
-    
-    
-   
-    
-
-
-
-
 return(
-
-
-
 
 <Box>
 

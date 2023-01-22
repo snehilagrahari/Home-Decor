@@ -1,46 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Button, Tag } from "@chakra-ui/react";
+import { Box, Button, Tag } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../redux/Cart/cart.actions";
 import { useNavigate } from "react-router-dom";
+// import { Box } from "@chakra-ui/react";
+// import { Box } from "@chakra-ui/react";
 
-function Cartitems({ data }) {
+function Cartitems({ data, exist }) {
   const dispatch = useDispatch();
   const handleaddtocart = () => {
     dispatch(addItemToCart(data));
   };
 
-  const [exist, setExist] = useState(false);
-
   const cart = useSelector((store) => store.cart.datas);
 
-  const CheckExistence = (cart,data) => {
-    for (let i = 0; i < cart.length; i++) {
-      if (cart[i].id == data.id) {
-        console.log("FOund");
-        return true;
-      }
-      console.log("Not Found");
-      return false;
-    }
+  const navigate = useNavigate();
+  const handleCart = () => {
+    navigate("/cart");
   };
-
-  const navigate= useNavigate();
-  const handleCart= ()=>{
-    navigate('/cart');
-  }
-  useEffect(()=>{
-    setExist(CheckExistence(cart,data));
-  },[cart])
 
   return (
     <>
-      <div
+      <Box
+        left={{ base: "none", sm: "0%" ,md:"-73%" ,lg:"-73%" ,xl:"-74%"}}
+        margin={{ base: "10px" }}
         style={{
           display: "flex",
           flexDirection: "column",
           position: "relative",
-          left: "-60%",
           // justifyContent: "space-evenly",
 
           // width: "100%",
@@ -138,7 +125,12 @@ function Cartitems({ data }) {
         >
           {/* button  */}
           {exist ? (
-            <Button bg="#902735" colorScheme={"red"} size="md" onClick={handleCart}>
+            <Button
+              bg="#902735"
+              colorScheme={"red"}
+              size="md"
+              onClick={handleCart}
+            >
               Go to Cart
             </Button>
           ) : (
@@ -155,7 +147,7 @@ function Cartitems({ data }) {
             Buy
           </Button> */}
         </div>
-      </div>
+      </Box>
     </>
   );
 }

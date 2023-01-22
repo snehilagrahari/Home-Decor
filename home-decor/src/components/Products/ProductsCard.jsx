@@ -4,21 +4,29 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../redux/Cart/cart.actions";
+import { useToast } from "@chakra-ui/react";
 
-
-const ProductsCard = ({data}) => {
-
-  console.log(data);
+const ProductsCard = ({ data }) => {
   const { id, images, title, price, discount } = data;
-  const navigate=  useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handleCardClick = ()=>{
-    navigate(`/products/${id}`)
-  }
-  
-  const handleAddtoCart = ()=>{
-    dispatch(addItemToCart(data))
-  }
+  const handleCardClick = () => {
+    navigate(`/products/${id}`);
+  };
+const toast=useToast()
+  const handleAddtoCart = () => {
+    dispatch(addItemToCart(data));
+    setTimeout(()=>{
+      toast({
+        title:'Product Added to Cart Succesfully ',
+        status: 'success',
+        position:'top',
+        isClosable: true,
+      })
+    },1000)
+   
+
+  };
 
   return (
     <div className={Styles.mainCard}>

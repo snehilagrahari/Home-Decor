@@ -16,7 +16,14 @@ import {
   Input,
   Image,
   Circle,
-} from "@chakra-ui/react";
+
+} from '@chakra-ui/react'
+
+import {useNavigate} from 'react-router-dom'
+import { AUTH_LOGOUT } from '../../redux/auth/auth.type'
+import { Logout } from '../../redux/auth/auth.actions'
+import { getCartItems } from '../../redux/Cart/cart.actions'
+import Login1 from '../Login/Login1'
 
 import { useNavigate } from "react-router-dom";
 import { AUTH_LOGOUT } from "../../redux/auth/auth.type";
@@ -59,7 +66,7 @@ export const Navbar1 = () => {
 
   useEffect(() => {
     dispatch(getCartItems());
-  }, []);
+  },[])
   return (
     <Flex
       maxW={"100%"}
@@ -101,29 +108,21 @@ export const Navbar1 = () => {
       </Flex>
       <Flex alignItems="center" gap={2}>
         <Flex alignItems="center" gap={1}>
-          <ImUser size={"25px"} color="white" />
-          {isAuth ? (
-            <Menu>
-              <MenuButton>
-                <Text
-                  as="span"
-                  display={{ base: "none", sm: "none", md: "block" }}
-                >
-                  Account
-                </Text>
-              </MenuButton>
-              <MenuList color={"black"}>
-                <MenuItem>My Account</MenuItem>
-                <MenuItem onClick={handleOrderClick}>My Orders</MenuItem>
-                <MenuItem>My Cart</MenuItem>
-                <MenuItem onClick={handleClick}>SignOut</MenuItem>
-              </MenuList>
-            </Menu>
-          ) : (
-            <Text display={{ base: "none", sm: "none", md: "block" }}>
-              Sign in/Register
-            </Text>
-          )}
+
+          <ImUser size={'25px'} color="white" />
+          {isAuth?<Menu>
+            <MenuButton>
+              <Text as="span" display={{base:'none',sm:'none',md:'block'}}>Account</Text>
+            </MenuButton>
+            <MenuList color={'black'}>
+              <MenuItem>My Account</MenuItem>
+              <MenuItem onClick={handleOrderClick}>My Orders</MenuItem>
+              <MenuItem>My Cart</MenuItem>
+              <MenuItem onClick={handleClick}>SignOut</MenuItem>
+            </MenuList>
+          </Menu>:<Login1 /> }
+
+
         </Flex>
         <Flex
           alignItems="center"

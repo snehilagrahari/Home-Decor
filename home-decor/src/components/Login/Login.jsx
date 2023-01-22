@@ -22,21 +22,7 @@ const Login = () => {
             <div className={styles.main_div}>
                 <div className={styles.child_div_1}>
                     <p>BENEFITS</p>
-                    <div>
-                        <img src={box} alt="box image" />
-                        <h5>Manage Orders</h5>
-                        <p>Track, Return & Cancel your orders</p>
-                    </div>
-                    <div>
-                        <img src={tag} alt="tag image" />
-                        <h5>Access Products that you love</h5>
-                        <p>Seamless access to Wishlist & Cart items</p>
-                    </div>
-                    <div>
-                        <img src={cart} alt="cart bucket image" />
-                        <h5>Quicker Checkout</h5>
-                        <p>Saved Addresses & bank details for 3 step checkout</p>
-                    </div>
+                    
                 </div>
                 <div className={styles.child_div_2}>
                     <div>

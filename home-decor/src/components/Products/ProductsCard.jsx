@@ -5,20 +5,17 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../redux/Cart/cart.actions";
 
-
-const ProductsCard = ({data}) => {
-
-  console.log(data);
+const ProductsCard = ({ data }) => {
   const { id, images, title, price, discount } = data;
-  const navigate=  useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handleCardClick = ()=>{
-    navigate(`/products/${id}`)
-  }
-  
-  const handleAddtoCart = ()=>{
-    dispatch(addItemToCart(data))
-  }
+  const handleCardClick = () => {
+    navigate(`/products/${id}`);
+  };
+
+  const handleAddtoCart = () => {
+    dispatch(addItemToCart(data));
+  };
 
   return (
     <div className={Styles.mainCard}>

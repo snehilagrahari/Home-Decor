@@ -31,9 +31,8 @@ export const  getCartItems=()=>async(dispatch)=>{
     dispatch({type:GET_CART_ITEMS_LOADING})
     try {
         let resp=await axios.get("https://mock-server-ge69.onrender.com/api/CartItem")
-
         dispatch({type:GET_CART_ITEMS_SUCCESS,payload:resp.data})
-        console.log('hello',resp.data)
+        //console.log('hello',resp.data)
     } catch (error) {
         dispatch({type:GET_CART_ITEMS_ERROR})
     }

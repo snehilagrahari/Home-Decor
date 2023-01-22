@@ -6,39 +6,35 @@ const Sort = ({ sort, handleSort, handleSortClose }) => {
       <p>Sort By:</p>
       <div
         style={{
-          backgroundColor: sort.includes("_sort=price&_order=asc")
-            ? "orange"
-            : "",
+          backgroundColor: sort.includes("price&_order=asc") ? "orange" : "",
         }}
         onClick={() => {
           handleSortClose();
-          handleSort("_sort=price&_order=asc");
+          handleSort("price&_order=asc", "price", "asc");
         }}
       >
         Price: Low to High
       </div>
       <div
         style={{
-          backgroundColor: sort.includes("_sort=price&_order=desc")
-            ? "orange"
-            : "",
+          backgroundColor: sort.includes("price&_order=desc") ? "orange" : "",
         }}
         onClick={() => {
           handleSortClose();
-          handleSort("_sort=price&_order=desc");
+          handleSort("price&_order=desc", "price", "desc");
         }}
       >
         Price: High to Low
       </div>
       <div
         style={{
-          backgroundColor: sort.includes("_sort=discount&_order=desc")
+          backgroundColor: sort.includes("discount&_order=desc")
             ? "orange"
             : "",
         }}
         onClick={() => {
           handleSortClose();
-          handleSort("_sort=discount&_order=desc");
+          handleSort("discount&_order=desc", "discount", "desc");
         }}
       >
         Discount

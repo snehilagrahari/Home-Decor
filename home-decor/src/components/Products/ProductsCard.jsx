@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../redux/Cart/cart.actions";
 
 const ProductsCard = ({ data }) => {
-  //console.log(data);
   const { id, images, title, price, discount } = data;
   const navigate = useNavigate();
   const dispatch = useDispatch();

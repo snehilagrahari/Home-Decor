@@ -16,6 +16,7 @@ import {
 import { useRef } from "react";
 import { checkNumber, Login, Signup } from "../../redux/auth/auth.actions";
 import { useDispatch } from "react-redux";
+import { ImUser } from "react-icons/im";
 
 const Login1 = () => {
 
@@ -67,9 +68,10 @@ const Login1 = () => {
   return (
     
     <Box>
-
-<Text display={{base:'none',sm:'none',md:'block'}} onClick={onOpen} cursor="pointer">Sign in/Register</Text>
-
+        <Flex>
+            <ImUser as="span" size={'25px'} color="white" onClick={onOpen} />
+            <Text as="span" display={{base:'none',sm:'none',md:'block'}} onClick={onOpen} cursor="pointer">Sign in/Register</Text>
+        </Flex>
       <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} size={{sm:"xl",md:'3xl'}}>
         <ModalOverlay />
         <ModalContent p={10}>

@@ -166,11 +166,11 @@
 }
 
 .button {
-    border: 1px solid green;
     color: white;
     background-color: #902735;
     width: 80%;
     height: 35px;
+    cursor : pointer;
     border-radius: 5px;
     margin: auto;
     /* text-align: center; */

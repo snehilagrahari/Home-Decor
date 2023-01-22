@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, useDisclosure } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 
 import { useSelector } from "react-redux";
@@ -23,17 +23,25 @@ import Footer from "../Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import CartEmpty from "./CartEmpty";
-import { useToast } from '@chakra-ui/react'
-import Loding from './Loding'
+import { useToast } from "@chakra-ui/react";
+import Loding from "./Loding";
 
-
-
-
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+} from "@chakra-ui/react";
 
 const Cartfull = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef();
+  const { isAuth } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
-const toast=useToast()
-const [loadr,setLoadr]=useState(false)
+  const toast = useToast();
+  const [loadr, setLoadr] = useState(false);
   const { datas } = useSelector((state) => state.cart);
   const date = new Date();
   const monthNames = [
@@ -51,34 +59,29 @@ const [loadr,setLoadr]=useState(false)
     "December",
   ];
 
-
-
   let day = date.getDate();
   let month = date.getMonth();
- 
-  useEffect(() => {
-    setLoadr(true)
-    dispatch(getCartItems());
-   setTimeout(() => {
-    setLoadr(false)
-   },1500);
-  }, [dispatch]);
 
-  
+  useEffect(() => {
+    setLoadr(true);
+    dispatch(getCartItems());
+    setTimeout(() => {
+      setLoadr(false);
+    }, 1500);
+  }, [dispatch]);
 
   const handleDelete = (id) => {
     dispatch(removeItemFromCart(id));
 
     dispatch(getCartItems());
-    setTimeout(()=>{
+    setTimeout(() => {
       toast({
-        title:'Product Removed Succesfully ',
-        status: 'success',
-        position:'top',
+        title: "Product Removed Succesfully ",
+        status: "success",
+        position: "top",
         isClosable: true,
-      })
-    },2000)
-   
+      });
+    }, 2000);
   };
 
   const Inc = (newcount, id, item) => {
@@ -116,13 +119,14 @@ const [loadr,setLoadr]=useState(false)
     }
     let z = datas.length;
 
-if(loadr){
-  return <Loding/>
-}
+    if (loadr) {
+      return <Loding />;
+    }
 
-
-
-
+    const handleOrder = () => {
+      if (isAuth == true) navigate("/checkout");
+      else onOpen();
+    };
 
     return (
       <Box>
@@ -156,6 +160,7 @@ if(loadr){
                 w={{ lg: "200px", md: "200px", sm: "200px", base: "100px" }}
                 color={"white"}
                 _hover={{ bg: "#902735" }}
+                onClick={handleOrder}
               >
                 Place Order
               </Button>
@@ -174,7 +179,7 @@ if(loadr){
           columns={{ xl: 3, lg: 2, md: 2, sm: 1, base: 1 }}
           w="90%"
           margin="auto"
-          gap={{base:3, sm:5, md:10}}
+          gap={{ base: 3, sm: 5, md: 10 }}
           justifyContent="center"
         >
           {datas
@@ -185,26 +190,26 @@ if(loadr){
                     display={"block"}
                     borderRadius="10px"
                     border="1px solid #902735"
-                    
                     h={{
                       xl: "auto",
                       lg: "auto",
                       md: "auto",
-                      base:"auto",
+                      base: "auto",
                       sm: "auto",
                     }}
                   >
-                    <Box w='100%'>
-                    <Image
-                      m=" 30px auto auto  auto"
-                      src={item.images[0]}
-                      maxW="auto"
-                      maxH="250px"
-                      cursor="pointer"
-                      onClick={() => handleProductRedirect(item.id)}
-                    /></Box>
+                    <Box w="100%">
+                      <Image
+                        m=" 30px auto auto  auto"
+                        src={item.images[0]}
+                        maxW="auto"
+                        maxH="250px"
+                        cursor="pointer"
+                        onClick={() => handleProductRedirect(item.id)}
+                      />
+                    </Box>
                     <Text
-                    noOfLines={1}
+                      noOfLines={1}
                       textAlign={"center"}
                       color="gray.500"
                       fontWeight={"bold"}
@@ -217,21 +222,23 @@ if(loadr){
                       <Button
                         onClick={() => Dec(item.count - 1, item.id, item)}
                         mr="20px"
-                        color="black"
-                        bg="purple.300"
-                        _hover={{bg:"black",color:"white"}}
-                        fontSize='30px'
+                        color="white"
+                        bgColor="#902735"
+                        _hover={{ bg: "black", color: "white" }}
+                        fontSize="30px"
                       >
-                       -
+                        -
                       </Button>
-                      <Text>{item.count}</Text>
+                      <Text fontSize={"lg"} fontWeight="bold">
+                        {item.count}
+                      </Text>
                       <Button
-                      fontSize='25px'
+                        fontSize="25px"
                         onClick={() => Inc(item.count + 1, item.id, item)}
                         ml="20px"
-                        color="black"
-                        bg="purple.300"
-                        _hover={{bg:"black",color:"white"}}
+                        bgColor="#902735"
+                        color="white"
+                        _hover={{ bg: "black", color: "white" }}
                       >
                         +
                       </Button>
@@ -286,10 +293,12 @@ if(loadr){
                       mt="15px"
                       color="black"
                       bg="#902735"
-                      mb='15px'
-                      _hover={{bg:"black"}}
+                      mb="15px"
+                      _hover={{ bg: "black" }}
                     >
-                      <Text fontSize={"15px"} color='white'>Remove</Text>
+                      <Text fontSize={"15px"} color="white">
+                        Remove
+                      </Text>
                     </Button>
                   </Center>
                 );
@@ -318,12 +327,36 @@ if(loadr){
                 w="200px"
                 color={"white"}
                 _hover={{ bg: "#902735" }}
+                onClick={handleOrder}
               >
                 Place Order
               </Button>
             </Center>
           </WrapItem>
         </Wrap>
+        <AlertDialog
+          isOpen={isOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={onClose}
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                Authentication Error
+              </AlertDialogHeader>
+
+              <AlertDialogBody>
+                You can proceed with the order after login.
+              </AlertDialogBody>
+
+              <AlertDialogFooter>
+                <Button colorScheme="red" onClick={onClose} ml={3}>
+                  Close
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
 
         <Footer />
       </Box>

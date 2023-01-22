@@ -9,15 +9,16 @@ const OrderPage = () => {
 
   const dispatch = useDispatch();
   const orders = useSelector((store)=>store.userOrder.orders);
+  const {isAuth, data} = useSelector(store=>store.auth);
   console.log(orders);
     
 
     useEffect(()=>{
-      dispatch(getOrders('1243'));
+      dispatch(getOrders(data.id));
     },[])
 
   return (
-    <div style={{width : '90%', margin : "auto"}}>
+    <div style={{width : '90%', margin : "40px auto"}}>
         <Heading as="h2" size="xl" textAlign={'left'} marginBottom={4}>Your Orders</Heading>
         {
             orders && orders.map(el=>{

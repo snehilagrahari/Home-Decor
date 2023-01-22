@@ -86,7 +86,7 @@ const Filter = ({ handleFilterClose, filterDefaultValues }) => {
                   <Radio value="30*60_discount" name="discount">
                     30% - 60% (11)
                   </Radio>
-                  <Radio value="60_discount" name="discount">
+                  <Radio value="60*100000000000_discount" name="discount">
                     Above 60% (11)
                   </Radio>
                 </Stack>

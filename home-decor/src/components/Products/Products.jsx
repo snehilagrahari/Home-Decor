@@ -121,51 +121,288 @@ const Products = () => {
   const totalPage = Math.ceil(totalCount / productsPerPage);
 
   /**********    handling all functions   ******************/
+
+  /**********    this function change pages   ******************/
   const paginate = (num) => {
     setCurrentPage(num);
+
+    setSearchParams((prevSearchParams) => {
+      const newSearchParams = new URLSearchParams(prevSearchParams);
+      if (!newSearchParams.has("q")) {
+        newSearchParams.append("q", "");
+      }
+
+      if (newSearchParams.has("_page")) {
+        newSearchParams.set("_page", num);
+      } else {
+        newSearchParams.append("_page", num);
+      }
+
+      if (!newSearchParams.has("_limit")) {
+        newSearchParams.append("_limit", 15);
+      }
+
+      return newSearchParams;
+    });
   };
 
-  const handleSort = (value) => {
+  /**********    this function impliment sorting   ******************/
+  const handleSort = (value, sort, order) => {
     setSort(value);
+
+    setSearchParams((prevSearchParams) => {
+      const newSearchParams = new URLSearchParams(prevSearchParams);
+      if (!newSearchParams.has("q")) {
+        newSearchParams.append("q", "");
+      }
+
+      if (!newSearchParams.has("_page")) {
+        newSearchParams.append("_page", 1);
+      }
+
+      if (!newSearchParams.has("_limit")) {
+        newSearchParams.append("_limit", 15);
+      }
+
+      if (newSearchParams.has("_sort")) {
+        newSearchParams.set("_sort", sort);
+      } else {
+        newSearchParams.append("_sort", sort);
+      }
+
+      if (newSearchParams.has("_order")) {
+        newSearchParams.set("_order", order);
+      } else {
+        newSearchParams.append("_order", order);
+      }
+
+      return newSearchParams;
+    });
   };
 
+  /**********    state for the drawer   ******************/
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
+  /**********    this close the drawer when cliked on sorting buttons in mobile view  ******************/
   const handleSortClose = () => {
     onClose();
   };
 
+  /**********    this close the drawer when cliked on filters radio buttons in mobile view  ******************/
   const handleFilterClose = (value) => {
     if (value.includes("*")) {
       if (value.includes("_price")) {
-        let res = new Array(2);
         let temp = value.split("*");
-        res[0] = +temp[0];
-        res[1] = +temp[1].split("_price")[0];
-        setPrice_gte(res[0]);
-        setPrice_lte(res[1]);
-      } else if (value.includes("_discount")) {
-        let res = new Array(2);
-        let temp = value.split("*");
-        res[0] = +temp[0];
-        res[1] = +temp[1].split("_discount")[0];
-        setDiscount_gte(res[0]);
-        setDiscount_lte(res[1]);
+        let price_gte = +temp[0];
+        let price_lte = +temp[1].split("_price")[0];
+        setPrice_gte(price_gte);
+        setPrice_lte(price_lte);
+
+        setSearchParams((prevSearchParams) => {
+          const newSearchParams = new URLSearchParams(prevSearchParams);
+          if (!newSearchParams.has("q")) {
+            newSearchParams.append("q", "");
+          }
+
+          if (newSearchParams.has("_page")) {
+            setCurrentPage(1);
+            newSearchParams.set("_page", 1);
+          } else {
+            setCurrentPage(1);
+            newSearchParams.append("_page", 1);
+          }
+
+          if (!newSearchParams.has("_limit")) {
+            newSearchParams.append("_limit", 15);
+          }
+
+          if (newSearchParams.has("price_lte")) {
+            newSearchParams.set("price_lte", price_lte);
+          } else {
+            newSearchParams.append("price_lte", price_lte);
+          }
+
+          if (newSearchParams.has("price_gte")) {
+            newSearchParams.set("price_gte", price_gte);
+          } else {
+            newSearchParams.append("price_gte", price_gte);
+          }
+
+          return newSearchParams;
+        });
       }
-    } else if (value.includes("_category")) {
-      let temp = value.split("_category");
-      setcategory(temp[0]);
-    } else if (value.includes("_timeToShip")) {
-      let temp = value.split("_timeToShip");
-      setTimeToShip(temp[0]);
-    } else if (value.includes("_returnable")) {
-      let temp = value.split("_returnable");
-      setReturnable(temp[0]);
-    } else if (value.includes("_cancellable")) {
-      let temp = value.split("_cancellable");
-      setCancellable(temp[0]);
+
+      if (value.includes("_discount")) {
+        let temp = value.split("*");
+        let discount_lte = +temp[1].split("_discount")[0];
+        let discount_gte = +temp[0];
+        setDiscount_gte(discount_gte);
+        setDiscount_lte(discount_lte);
+
+        setSearchParams((prevSearchParams) => {
+          const newSearchParams = new URLSearchParams(prevSearchParams);
+          if (!newSearchParams.has("q")) {
+            newSearchParams.append("q", "");
+          }
+
+          if (newSearchParams.has("_page")) {
+            setCurrentPage(1);
+            newSearchParams.set("_page", 1);
+          } else {
+            setCurrentPage(1);
+            newSearchParams.append("_page", 1);
+          }
+
+          if (!newSearchParams.has("_limit")) {
+            newSearchParams.append("_limit", 15);
+          }
+
+          if (newSearchParams.has("discount_lte")) {
+            newSearchParams.set("discount_lte", discount_lte);
+          } else {
+            newSearchParams.append("discount_lte", discount_lte);
+          }
+
+          if (newSearchParams.has("discount_gte")) {
+            newSearchParams.set("discount_gte", discount_gte);
+          } else {
+            newSearchParams.append("discount_gte", discount_gte);
+          }
+
+          return newSearchParams;
+        });
+      }
     }
+
+    if (value.includes("_category")) {
+      let category = value.split("_category")[0];
+      setcategory(category);
+
+      setSearchParams((prevSearchParams) => {
+        const newSearchParams = new URLSearchParams(prevSearchParams);
+        if (!newSearchParams.has("q")) {
+          newSearchParams.append("q", "");
+        }
+
+        if (newSearchParams.has("_page")) {
+          setCurrentPage(1);
+          newSearchParams.set("_page", 1);
+        } else {
+          setCurrentPage(1);
+          newSearchParams.append("_page", 1);
+        }
+
+        if (!newSearchParams.has("_limit")) {
+          newSearchParams.append("_limit", 15);
+        }
+
+        if (newSearchParams.has("category")) {
+          newSearchParams.set("category", category);
+        } else {
+          newSearchParams.append("category", category);
+        }
+
+        return newSearchParams;
+      });
+    }
+
+    if (value.includes("_timeToShip")) {
+      let timeToShip = value.split("_timeToShip")[0];
+      setTimeToShip(timeToShip);
+
+      setSearchParams((prevSearchParams) => {
+        const newSearchParams = new URLSearchParams(prevSearchParams);
+        if (!newSearchParams.has("q")) {
+          newSearchParams.append("q", "");
+        }
+
+        if (newSearchParams.has("_page")) {
+          setCurrentPage(1);
+          newSearchParams.set("_page", 1);
+        } else {
+          setCurrentPage(1);
+          newSearchParams.append("_page", 1);
+        }
+
+        if (!newSearchParams.has("_limit")) {
+          newSearchParams.append("_limit", 15);
+        }
+
+        if (newSearchParams.has("timeToShip")) {
+          newSearchParams.set("timeToShip", timeToShip);
+        } else {
+          newSearchParams.append("timeToShip", timeToShip);
+        }
+
+        return newSearchParams;
+      });
+    }
+
+    if (value.includes("_returnable")) {
+      let returnable = value.split("_returnable")[0];
+      setReturnable(returnable);
+
+      setSearchParams((prevSearchParams) => {
+        const newSearchParams = new URLSearchParams(prevSearchParams);
+        if (!newSearchParams.has("q")) {
+          newSearchParams.append("q", "");
+        }
+
+        if (newSearchParams.has("_page")) {
+          setCurrentPage(1);
+          newSearchParams.set("_page", 1);
+        } else {
+          setCurrentPage(1);
+          newSearchParams.append("_page", 1);
+        }
+
+        if (!newSearchParams.has("_limit")) {
+          newSearchParams.append("_limit", 15);
+        }
+
+        if (newSearchParams.has("returnable")) {
+          newSearchParams.set("returnable", returnable);
+        } else {
+          newSearchParams.append("returnable", returnable);
+        }
+
+        return newSearchParams;
+      });
+    }
+
+    if (value.includes("_cancellable")) {
+      let cancellable = value.split("_cancellable")[0];
+      setCancellable(cancellable);
+
+      setSearchParams((prevSearchParams) => {
+        const newSearchParams = new URLSearchParams(prevSearchParams);
+        if (!newSearchParams.has("q")) {
+          newSearchParams.append("q", "");
+        }
+
+        if (newSearchParams.has("_page")) {
+          setCurrentPage(1);
+          newSearchParams.set("_page", 1);
+        } else {
+          setCurrentPage(1);
+          newSearchParams.append("_page", 1);
+        }
+
+        if (!newSearchParams.has("_limit")) {
+          newSearchParams.append("_limit", 15);
+        }
+
+        if (newSearchParams.has("cancellable")) {
+          newSearchParams.set("cancellable", cancellable);
+        } else {
+          newSearchParams.append("cancellable", cancellable);
+        }
+
+        return newSearchParams;
+      });
+    }
+
     onClose();
   };
 
@@ -247,7 +484,7 @@ const Products = () => {
         </div>
       </div>
 
-      {/***********  customize soring when screen is mobile *************/}
+      {/***********  customize sorting when screen is mobile *************/}
       <div className={`${Styles.sortFloat} ${isVisible ? "" : Styles.hidden}`}>
         <Button ref={btnRef} color={"white"} bg={"#902735"} onClick={onOpen}>
           Customize search

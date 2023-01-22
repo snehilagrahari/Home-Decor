@@ -13,6 +13,7 @@
 
 .grid {
   width: 90%;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -33,6 +34,7 @@
 
 .gridCard {
   width: 100%;
+  height: fit-content;
   margin: auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);

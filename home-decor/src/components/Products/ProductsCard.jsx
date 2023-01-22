@@ -3,7 +3,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../redux/Cart/cart.actions";
-
+import { useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import { useEffect } from "react";
 

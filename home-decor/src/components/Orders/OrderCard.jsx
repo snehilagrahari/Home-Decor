@@ -23,7 +23,7 @@ const OrderCard = (props) => {
     
   return (
     <div>
-        <VStack alignItems='start' p={4} border="1px solid #902735" borderRadius={'lg'} >
+        <VStack alignItems='start' p={4} border="1px solid #902735" borderRadius={'lg'} margin="20px auto" >
             <Heading size="lg">Order <Heading as="span" size="lg" color="grey">#{orderDetails.id}</Heading></Heading>
             <Heading size="md">Items :</Heading>
             <VStack alignItems={'start'} w="full">

@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { Wrap, WrapItem, Center, Text, Image, Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../Footer";
 import {
   getCartItems,
@@ -10,6 +10,8 @@ import {
 import { useDispatch } from "react-redux";
 
 const CartEmpty=()=>{
+
+    const navigate = useNavigate();
 
     const dispatch=useDispatch()
 return(
@@ -58,7 +60,7 @@ return(
 
 <Image w='200px' h='140px' src='https://www.craftsvilla.com/assets/group-6.png'/>
 <Text mt='16px'  fontSize="23px">Your Cart is Empty</Text>
-<Button mt='10px' mb='50px' bg='#902735' color={'white'} _hover={{ bg:'#902735'}}>CONTINUE SHOPPING</Button>
+<Button mt='10px' mb='50px' bg='#902735' color={'white'} _hover={{ bg:'#902735'}} onClick={()=>navigate('/')}>CONTINUE SHOPPING</Button>
     </Center>
 </WrapItem>
 

@@ -3,6 +3,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../redux/Cart/cart.actions";
+
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -13,13 +14,14 @@ const ProductsCard = ({ data, handleToast, cart }) => {
     CheckExistence(cart, id);
   }, [cart]);
 
+
   const { id, images, title, price, discount } = data;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleCardClick = () => {
     navigate(`/products/${id}`);
   };
-
+const toast=useToast()
   const handleAddtoCart = () => {
     dispatch(addItemToCart(data));
     handleToast("success");
@@ -31,6 +33,7 @@ const ProductsCard = ({ data, handleToast, cart }) => {
         setExist(true);
       }
     }
+
   };
 
   return (

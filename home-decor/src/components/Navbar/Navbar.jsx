@@ -1,7 +1,9 @@
+
 import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { ImUser, ImCart } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
+
 
 import {
   Menu,
@@ -14,28 +16,43 @@ import {
   Input,
   Image,
   Circle,
-} from "@chakra-ui/react";
 
-import { useNavigate } from "react-router-dom";
-import { AUTH_LOGOUT } from "../../redux/auth/auth.type";
-import { Logout } from "../../redux/auth/auth.actions";
-import { getCartItems } from "../../redux/Cart/cart.actions";
+
+} from '@chakra-ui/react'
+
+import {useNavigate} from 'react-router-dom'
+import { Logout } from '../../redux/auth/auth.actions'
+import { getCartItems } from '../../redux/Cart/cart.actions'
+import Login1 from '../Login/Login1'
 
 export const Navbar1 = () => {
+
   const isAuth = useSelector((store) => store.auth.isAuth);
 
   const cart = useSelector((store) => store.cart.datas);
 
+
   const [searchText, setSearchText] = useState("");
 
-  const handleSearchClick = () => {
-    if (searchText.trim() != "") {
-      navigate(`/search?q=${searchText}`);
+
+  const handleSearchClick = ()=>{
+   
+    
+    if(searchText.trim()!="")
+    {
+     
+        navigate(`/search?q=${searchText}`);
+           
+    
     }
-  };
-  const handleOrderClick = () => {
-    navigate("/orders");
-  };
+
+    
+  }
+  const handleOrderClick=()=>{
+    navigate('/orders');
+  }
+
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -45,6 +62,7 @@ export const Navbar1 = () => {
 
   useEffect(() => {
     dispatch(getCartItems());
+
   }, []);
 
   return (
@@ -88,29 +106,21 @@ export const Navbar1 = () => {
       </Flex>
       <Flex alignItems="center" gap={2}>
         <Flex alignItems="center" gap={1}>
-          <ImUser size={"25px"} color="white" />
-          {isAuth ? (
-            <Menu>
-              <MenuButton>
-                <Text
-                  as="span"
-                  display={{ base: "none", sm: "none", md: "block" }}
-                >
-                  Account
-                </Text>
-              </MenuButton>
-              <MenuList color={"black"}>
-                <MenuItem>My Account</MenuItem>
-                <MenuItem onClick={handleOrderClick}>My Orders</MenuItem>
-                <MenuItem>My Cart</MenuItem>
-                <MenuItem onClick={handleClick}>SignOut</MenuItem>
-              </MenuList>
-            </Menu>
-          ) : (
-            <Text display={{ base: "none", sm: "none", md: "block" }}>
-              Sign in/Register
-            </Text>
-          )}
+          {isAuth?<Menu>
+            <MenuButton>
+              <Flex>
+                <ImUser size={'25px'} color="white" />
+                <Text as="span" display={{base:'none',sm:'none',md:'block'}}>Account</Text>
+              </Flex>
+            </MenuButton>
+            <MenuList color={'black'}>
+              <MenuItem>My Account</MenuItem>
+              <MenuItem onClick={handleOrderClick}>My Orders</MenuItem>
+              <MenuItem>My Cart</MenuItem>
+              <MenuItem onClick={handleClick}>SignOut</MenuItem>
+            </MenuList>
+          </Menu>:<Login1 /> }
+
         </Flex>
         <Flex
           alignItems="center"

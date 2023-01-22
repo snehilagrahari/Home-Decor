@@ -23,11 +23,18 @@ import Footer from "../Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import CartEmpty from "./CartEmpty";
+import { useToast } from '@chakra-ui/react'
+import Loding from './Loding'
+
+
+
+
 
 const Cartfull = () => {
   const dispatch = useDispatch();
-
-  const { loading, error, datas } = useSelector((state) => state.cart);
+const toast=useToast()
+const [loadr,setLoadr]=useState(false)
+  const { datas } = useSelector((state) => state.cart);
   const date = new Date();
   const monthNames = [
     "January",
@@ -44,17 +51,34 @@ const Cartfull = () => {
     "December",
   ];
 
+
+
   let day = date.getDate();
   let month = date.getMonth();
-
+ 
   useEffect(() => {
+    setLoadr(true)
     dispatch(getCartItems());
+   setTimeout(() => {
+    setLoadr(false)
+   },1500);
   }, [dispatch]);
+
+  
 
   const handleDelete = (id) => {
     dispatch(removeItemFromCart(id));
 
     dispatch(getCartItems());
+    setTimeout(()=>{
+      toast({
+        title:'Product Removed Succesfully ',
+        status: 'success',
+        position:'top',
+        isClosable: true,
+      })
+    },2000)
+   
   };
 
   const Inc = (newcount, id, item) => {
@@ -90,8 +114,15 @@ const Cartfull = () => {
         k = k + item.price;
       });
     }
-
     let z = datas.length;
+
+if(loadr){
+  return <Loding/>
+}
+
+
+
+
 
     return (
       <Box>
@@ -141,9 +172,10 @@ const Cartfull = () => {
 
         <SimpleGrid
           columns={{ xl: 3, lg: 2, md: 2, sm: 1, base: 1 }}
-          spacing="-40px"
-          ml="10px"
-          mt="50px"
+          w="90%"
+          margin="auto"
+          gap={{base:3, sm:5, md:10}}
+          justifyContent="center"
         >
           {datas
             ? datas.map((item) => {
@@ -152,39 +184,27 @@ const Cartfull = () => {
                     key={item.id}
                     display={"block"}
                     borderRadius="10px"
-                    border="1px solid gray"
-                    w={{
-                      xl: "440px",
-                      lg: "440px",
-                      md: "340px",
-                      sm: "300px",
-                      base: "250px",
-                    }}
+                    border="1px solid #902735"
+                    
                     h={{
-                      xl: "490px",
-                      lg: "490px",
-                      md: "500px",
-                      base: "560px",
-                      sm: "510px",
+                      xl: "auto",
+                      lg: "auto",
+                      md: "auto",
+                      base:"auto",
+                      sm: "auto",
                     }}
-                    ml={{
-                      sm: "170px",
-                      xl: "0px",
-                      md: "0px",
-                      lg: "0px",
-                      base: "50px",
-                    }}
-                    mt="20px"
                   >
+                    <Box w='100%'>
                     <Image
                       m=" 30px auto auto  auto"
                       src={item.images[0]}
-                      maxW="200px"
+                      maxW="auto"
                       maxH="250px"
                       cursor="pointer"
                       onClick={() => handleProductRedirect(item.id)}
-                    />
+                    /></Box>
                     <Text
+                    noOfLines={1}
                       textAlign={"center"}
                       color="gray.500"
                       fontWeight={"bold"}
@@ -199,17 +219,21 @@ const Cartfull = () => {
                         mr="20px"
                         color="black"
                         bg="purple.300"
+                        _hover={{bg:"black",color:"white"}}
+                        fontSize='30px'
                       >
-                        <Text fontSize={"30px"}>-</Text>
+                       -
                       </Button>
                       <Text>{item.count}</Text>
                       <Button
+                      fontSize='25px'
                         onClick={() => Inc(item.count + 1, item.id, item)}
                         ml="20px"
                         color="black"
                         bg="purple.300"
+                        _hover={{bg:"black",color:"white"}}
                       >
-                        <Text fontSize={"25px"}>+</Text>
+                        +
                       </Button>
                     </Center>
                     <Text
@@ -261,9 +285,11 @@ const Cartfull = () => {
                       onClick={() => handleDelete(item.id)}
                       mt="15px"
                       color="black"
-                      bg="purple.300"
+                      bg="#902735"
+                      mb='15px'
+                      _hover={{bg:"black"}}
                     >
-                      <Text fontSize={"15px"}>Remove</Text>
+                      <Text fontSize={"15px"} color='white'>Remove</Text>
                     </Button>
                   </Center>
                 );

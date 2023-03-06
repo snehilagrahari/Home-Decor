@@ -23,6 +23,12 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
+import { useToast } from '@chakra-ui/react'
+
+import firebase from './firebase'
+
+
+
 
 import box from "../../assets/box.png";
 import cart from "../../assets/tag.png";
@@ -36,9 +42,10 @@ const Login1 = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   let dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-
+  const toast = useToast()
   const inputRef = useRef();
-
+const [lenno,setLenno]=useState(false)
+const [otpget,setOtpget]=useState(false)
   const [no, setNo] = useState("");
   const [next, setNext] = useState(false);
   const [otp, setOtp] = useState("");
@@ -51,10 +58,10 @@ const Login1 = () => {
 
   const handleContinueClick = () => {
     if (no.length == 10) {
-      setNext(true);
+      
+     ;
     } else {
-      inputRef.current.style.border = "1px solid red";
-      inputRef.current.style.color = "red";
+     
     }
   };
 
@@ -62,17 +69,147 @@ const Login1 = () => {
     if (otp != "1234") {
       return;
     } else {
-        setLoading(true);
-      let id = await checkNumber(no);
-      if (id != false) dispatch(Login(id));
-      else dispatch(Signup(no));
-      setLoading(false);
+        ;
     }
   };
 
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(otpget==true){
+ 
+  return (
+    
+    toast({
+      title: 'Login Succesfully',
+      
+      status: 'success',
+      
+      position:"top",
+      isClosable: true,
+    })
+
+  
+  )
+  
+  }
+
+
+
+
+
+
+
+
+
+  
   const handlePinChange = (val) => {
     setOtp(val);
   };
+  
+  
+  
+
+  let configureCaptcha=()=>{
+
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+      'size': 'invisible',
+      'callback': (response) => {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+        onSignInSubmit();
+      },
+      defaultCountry:"IN"
+    });
+    
+  }
+
+
+  let onSignInSubmit=()=>{
+
+    const phoneNumber = "+91"+no;
+    configureCaptcha()
+  const appVerifier = window.recaptchaVerifier;
+  firebase.auth().signInWithPhoneNumber(phoneNumber,appVerifier)
+      .then((confirmationResult) => {
+        // SMS sent. Prompt user to type the code from the message, then sign the
+        // user in with confirmationResult.confirm(code).
+        window.confirmationResult = confirmationResult;
+        // ...
+        console.log("otp send")
+        console.log(confirmationResult)
+        setNext(true)
+       
+      }).catch((error) => {
+        // Error; SMS not sent
+        // ...
+        console.log(error)
+       
+        inputRef.current.style.border = "1px solid red";
+        inputRef.current.style.color = "red";
+        
+      });
+  }
+  
+  
+
+
+
+  const  varif=()=>{
+    const code = otp;
+    window.confirmationResult.confirm(code).then((result) => {
+      // User signed in successfully.
+      const user = result.user;
+      // ...
+   
+      console.log(JSON.stringify(user))
+  if(JSON.stringify(user.phoneNumber)!=null){
+    console.log("user is verified")
+    again()
+      setOtpget(true)
+
+      setTimeout(()=>{
+        setOtpget(false)
+      },1000)
+
+  }
+    
+  
+     
+    }).catch((error) => {
+      // User couldn't sign in (bad verification code?)
+      // ...
+      console.log(error)
+      console.log("user is not varified")
+    });
+    
+  
+  }
+
+
+const again=async()=>{
+setLoading(true)
+let id= await checkNumber(no)
+if(id!=false) dispatch(Login(id))
+else dispatch(Signup(no));
+setLoading(false)
+}
+
+
+  
+  
+  
   return (
     <Box>
       <Flex>
@@ -171,6 +308,18 @@ const Login1 = () => {
                         borderRadius={"none"}
                         w="50px"
                       />
+                      <PinInputField
+                        border={"none"}
+                        borderBottom="1px solid"
+                        borderRadius={"none"}
+                        w="50px"
+                      />
+                      <PinInputField
+                        border={"none"}
+                        borderBottom="1px solid"
+                        borderRadius={"none"}
+                        w="50px"
+                      />
                     </PinInput>
                   </HStack>
                   <Button
@@ -179,7 +328,7 @@ const Login1 = () => {
                     display={'block'}
                     isLoading = {loading}
                     margin={{base: 'auto', sm : 'auto', md : '3px'}}
-                    onClick={handleOTPClick}
+                    onClick={()=>varif()}
                   >
                     Submit
                   </Button>
@@ -198,9 +347,10 @@ const Login1 = () => {
                     {no.length}/10
                   </Text>
                   <Button
+                  id="sign-in-button"
                     colorScheme="red"
                     mr={3}
-                    onClick={handleContinueClick}
+                    onClick={()=>onSignInSubmit()}
                   >
                     Continue
                   </Button>
